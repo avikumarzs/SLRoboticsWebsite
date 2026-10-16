@@ -60,12 +60,15 @@ export function saveQuizScore(grade, score, total) {
     const all = getAllProgress();
     const gradeProg = all[grade] || { completedModules: [], completedActivities: [], quizScore: null };
     const percentage = Math.round((score / total) * 100);
-    gradeProg.quizScore = {
+    const result = {
       score,
       total,
       percentage,
       date: new Date().toISOString()
     };
+    gradeProg.quizScore = result;
+    gradeProg.bestQuizScore = Math.max(gradeProg.bestQuizScore?.percentage || 0, percentage);
+    gradeProg.quizAttempts = (gradeProg.quizAttempts || 0) + 1;
     all[grade] = gradeProg;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
     return gradeProg;

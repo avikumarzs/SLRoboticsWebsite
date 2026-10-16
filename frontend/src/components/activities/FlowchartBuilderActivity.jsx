@@ -155,8 +155,6 @@ export default function FlowchartBuilderActivity({ grade = 8, onCompleted }) {
       if (step < sequence.length) {
         setActiveStep(step);
         const blockId = sequence[step];
-        const block = BLOCK_TYPES.find(b => b.id === blockId);
-
         if (blockId === 'start') {
           setRoverActionMessage('⚡ Power On: Registers cleared, GPIO pins configured.');
         } else if (blockId === 'read_sensor') {

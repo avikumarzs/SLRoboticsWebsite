@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const COPYRIGHT_YEAR = new Date().getFullYear();
+
 export default function Footer() {
   return (
     <footer className="bg-slate-950 text-slate-400 border-t border-slate-800/80 pt-12 pb-8">
@@ -9,11 +11,9 @@ export default function Footer() {
           {/* Mission Overview */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-lg text-white font-bold shadow-md">
-                🤖
-              </div>
-              <span className="text-white font-bold text-lg tracking-tight">
-                Akshar Bharti Robotics Initiative
+              <img src="/akshar-bharti-logo.png" alt="Akshar Bharti Seva International logo" className="h-12 w-[72px] object-contain" />
+              <span className="text-white font-bold text-base tracking-tight">
+                Akshar Bharti Seva International
               </span>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed max-w-md">
@@ -108,7 +108,7 @@ export default function Footer() {
         {/* Bottom Attribution */}
         <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            © {new Date().getFullYear()} Akshar Bharti Service Learning Project. Built for educational non-profit impact.
+            © {COPYRIGHT_YEAR} Akshar Bharti Seva International. Robotics Simulation Lab for Grades 5–10.
           </div>
           <div className="flex items-center gap-4">
             <span>Grades 5–10 Curriculum</span>

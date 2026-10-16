@@ -37,7 +37,8 @@ export default function InteractiveQuizActivity({ grade = 5, quizQuestions = [],
       ...prev,
       [currentIdx]: {
         selected: selectedOption,
-        correct: isCorrect
+        correct: isCorrect,
+        correctIndex: currentQ.correctIndex
       }
     }));
   };
@@ -214,6 +215,17 @@ export default function InteractiveQuizActivity({ grade = 5, quizQuestions = [],
             {percentage >= 75 && percentage < 100 && 'Great job! You have a solid grasp of the robotics principles covered in this unit.'}
             {percentage < 75 && 'Good effort! Review the module readings and retry the quiz to master these concepts.'}
           </div>
+
+          <ol className="quiz-review" aria-label="Question review">
+            {quizQuestions.map((item, index) => {
+              const answer = answers[index];
+              return <li key={item.id || index} className={answer?.correct ? 'quiz-review-correct' : 'quiz-review-incorrect'}>
+                <strong>{answer?.correct ? '✓' : '↺'} Q{index + 1}: {item.question}</strong>
+                <span>{answer ? `Your answer: ${item.options[answer.selected]}` : 'Not answered'}</span>
+                {!answer?.correct && <span>Correct answer: {item.options[item.correctIndex]}</span>}
+              </li>;
+            })}
+          </ol>
 
           <div className="flex flex-wrap justify-center gap-3">
             <button
