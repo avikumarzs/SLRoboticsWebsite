@@ -23,27 +23,23 @@ export default function Navbar({ currentGrade = null }) {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 text-white">
+      <nav className="sticky top-0 z-50 backdrop-blur-md bg-amber-50/95 border-b border-amber-200 text-amber-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Brand Logo & Title */}
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-xl shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
-                🤖
-              </div>
-              <div>
-                <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
-                  Akshar Bharti
+              <img src="/akshar-bharti-logo.png" alt="Akshar Bharti Seva International logo" className="h-12 w-[72px] object-contain" />
+              <div className="leading-tight">
+                <span className="block font-bold text-sm sm:text-base tracking-tight text-slate-900">
+                  Akshar Bharti Seva International
                 </span>
-                <span className="hidden sm:inline-block ml-2 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded-md bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                  Robotics Initiative
-                </span>
+                <span className="text-xs font-semibold text-blue-800">Robotics Simulation Lab</span>
               </div>
             </Link>
 
             {/* Grade Quick Selector Nav */}
-            <div className="hidden md:flex items-center gap-1.5 bg-slate-800/80 p-1 rounded-xl border border-slate-700/60">
-              <span className="text-xs text-slate-400 px-2 font-medium">Grades:</span>
+            <div className="hidden md:flex items-center gap-1.5 bg-amber-100 p-1 rounded-xl border border-amber-300">
+              <span className="text-xs text-amber-900 px-2 font-medium">Grades:</span>
               {[5, 6, 7, 8, 9, 10].map((g) => {
                 const isSelected = currentGrade === g;
                 return (
@@ -52,8 +48,8 @@ export default function Navbar({ currentGrade = null }) {
                     onClick={() => navigate(`/learn/${g}`)}
                     className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                       isSelected
-                        ? 'bg-blue-600 text-white shadow-sm'
-                        : 'text-slate-300 hover:text-white hover:bg-slate-700/60'
+                        ? 'bg-amber-600 text-amber-950 shadow-sm'
+                        : 'text-amber-900 hover:text-amber-950 hover:bg-amber-200'
                     }`}
                   >
                     G{g}
@@ -66,7 +62,7 @@ export default function Navbar({ currentGrade = null }) {
             <div className="flex items-center gap-3">
               <button
                 onClick={handleOpenStats}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-colors"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 text-xs font-semibold border border-amber-300 transition-colors"
                 title="View Progress Tracker"
               >
                 <span>📊</span>
@@ -75,7 +71,7 @@ export default function Navbar({ currentGrade = null }) {
 
               <Link
                 to="/"
-                className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-sm transition-all"
+                className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-amber-950 shadow-sm transition-all"
               >
                 Home
               </Link>

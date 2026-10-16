@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -81,11 +81,7 @@ const GRADES_METADATA = [
 
 export default function LandingPage() {
   const navigate = useNavigate();
-  const [progressData, setProgressData] = useState({});
-
-  useEffect(() => {
-    setProgressData(getAllProgress());
-  }, []);
+  const [progressData] = useState(getAllProgress);
 
   const scrollToGrades = () => {
     const el = document.getElementById('grade-selection');
@@ -102,14 +98,14 @@ export default function LandingPage() {
       <section className="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-32">
         {/* Subtle Background Glows */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-blue-600/20 via-indigo-600/20 to-cyan-500/10 blur-[120px] pointer-events-none rounded-full" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b22_1px,transparent_1px),linear-gradient(to_bottom,#1e293b22_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#dc790018_1px,transparent_1px),linear-gradient(to_bottom,#dc790018_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
             {/* Initiative Pill Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-semibold uppercase tracking-wider mb-8 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-              <span>Akshar Bharti Service Learning Project • Grades 5–10</span>
+              <span>Akshar Bharti Seva International • Robotics Simulation Lab • Grades 5–10</span>
             </div>
 
             {/* Official Required Headline */}
@@ -195,11 +191,15 @@ export default function LandingPage() {
               const gradeProg = progressData[item.grade] || {};
               const modulesDone = gradeProg.completedModules?.length || 0;
               const hasQuizScore = gradeProg.quizScore !== undefined && gradeProg.quizScore !== null;
+              const bestScore = gradeProg.bestQuizScore || gradeProg.quizScore?.percentage;
 
               return (
                 <div
                   key={item.grade}
                   onClick={() => navigate(`/learn/${item.grade}`)}
+                  onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); navigate(`/learn/${item.grade}`); } }}
+                  role="link"
+                  tabIndex={0}
                   className={`group relative rounded-2xl bg-slate-900 border border-slate-800 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/10 cursor-pointer flex flex-col justify-between ${item.border}`}
                 >
                   <div>
@@ -250,13 +250,10 @@ export default function LandingPage() {
                   {/* Card Bottom Progress & Action */}
                   <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs">
                     <div className="text-slate-400">
-                      {modulesDone > 0 ? (
-                        <span className="text-emerald-400 font-semibold flex items-center gap-1">
-                          <span>✓</span> {modulesDone} modules read
-                        </span>
-                      ) : (
-                        <span>3 Modules • 2 Labs</span>
-                      )}
+                      <span className="text-slate-500 font-semibold flex items-center gap-1">
+                        <span>{modulesDone ? '✓' : '•'}</span> {modulesDone} of {item.grade === 5 ? 3 : 4} modules read
+                      </span>
+                      {hasQuizScore && <span className="block mt-1 text-blue-800 font-semibold">Best quiz: {bestScore}%</span>}
                     </div>
 
                     <div className="flex items-center gap-1 font-bold text-blue-400 group-hover:translate-x-1 transition-transform">
@@ -333,20 +330,20 @@ export default function LandingPage() {
       {/* About Section: Akshar Bharti Educational Purpose */}
       <section className="py-20 bg-slate-900/40 border-t border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 rounded-3xl border border-slate-800 p-8 sm:p-12 shadow-2xl">
+          <div className="bg-gradient-to-r from-amber-50 via-white to-amber-100 rounded-3xl border border-amber-200 p-8 sm:p-12 shadow-xl">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8 space-y-4">
                 <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-bold uppercase tracking-wider">
                   About the Initiative
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-                  Akshar Bharti: Empowering Young Minds Through Robotics
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-amber-950">
+                  Akshar Bharti Seva International: Robotics Learning for Young Minds
                 </h2>
                 <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                  Akshar Bharti is an educational non-profit committed to bringing quality experiential STEM education to students from all socioeconomic backgrounds. As part of our Service Learning project, our team originally authored physical robotics booklets for school students in Grades 5 through 10.
+                  This service-learning project introduces robotics ideas to students in Grades 5 through 10 through visual lessons and interactive simulations.
                 </p>
                 <p className="text-sm text-slate-400 leading-relaxed">
-                  This web platform elevates that booklet curriculum into a dynamic digital laboratory. By removing the barrier of expensive hardware kits, every student with access to a school computer or mobile device can now assemble virtual rovers, test sensory algorithms, and experience the thrill of robotics innovation.
+                  Students can explore virtual rover parts, test sensor rules, build visual logic, and practise problem-solving without needing a physical robot for these activities.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-4 text-xs font-semibold text-slate-300">
                   <div className="flex items-center gap-2">
@@ -361,7 +358,7 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 bg-slate-950/60 rounded-2xl border border-slate-800/80 text-center">
+              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 bg-amber-100 rounded-2xl border border-amber-300 text-center">
                 <div className="text-5xl mb-3">🤝</div>
                 <h4 className="text-white font-bold text-base mb-1">Service Learning Project</h4>
                 <p className="text-xs text-slate-400 mb-4">

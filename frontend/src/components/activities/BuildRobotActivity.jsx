@@ -202,7 +202,7 @@ export default function BuildRobotActivity({ grade = 5, onCompleted }) {
         {/* Right Column: Visual Rover Blueprint & Interactive Dock */}
         <div className="lg:col-span-8 flex flex-col items-center justify-between bg-gradient-to-b from-slate-900 to-slate-950 p-6 rounded-2xl border border-slate-800 text-white relative overflow-hidden min-h-[480px]">
           {/* Blueprint Grid Lines Background */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#dc790012_1px,transparent_1px),linear-gradient(to_bottom,#dc790012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
 
           {/* Top HUD Telemetry */}
           <div className="w-full flex items-center justify-between z-10 text-xs font-mono">

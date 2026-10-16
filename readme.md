@@ -1,95 +1,62 @@
-# Akshar Bharati Robotics Educational Platform
+# Akshar Bharti Seva International | Robotics Simulation Lab
 
-A dynamic, interactive web platform built to introduce robotics concepts to students across different age groups (Grades 5 to 10). The application scales its content complexity and visual interface based on the student's selected grade level.
+An interactive robotics learning platform for Grades 5–10. The project uses a React/Vite frontend and an Express/Mongoose backend. The supplied logo is in `frontend/public/akshar-bharti-logo.png`.
 
-## 🚀 Features
+## Features
 
-* **Dynamic Curriculum Rendering:** Automatically fetches and adapts learning materials, problem statements, and project goals based on the selected grade.
-* **Maturity-Based UI:** The interface scales from highly visual, colorful layouts for junior grades to a more professional, terminal-like dark mode for senior grades.
-* **Full-Stack MERN Architecture:** Built with MongoDB, Express.js, React, and Node.js.
-* **Modern Styling:** Utilizes Tailwind CSS v4 for rapid, responsive UI development.
+- Six grade dashboards with the existing grade-specific curriculum.
+- Visual module illustrations and guided briefs for robot assembly, rover movement, sensor logic, and flowchart activities.
+- A rover simulator with three replayable obstacle layouts and collision checks.
+- Sensor controls for both the starting reading and the decision threshold.
+- Ten grade-specific quiz questions per grade, with answer explanations, score review, retry, and progress recording.
+- Local browser progress tracking for module reads, completed activities, quiz attempts, and best quiz scores.
+- Logo-derived amber, orange, blue, and warm neutral design tokens, responsive layouts, keyboard focus styles, and reduced-motion support.
 
-## 🛠️ Tech Stack
+## Requirements
 
-* **Frontend:** React (bootstrapped with Vite), React Router DOM, Tailwind CSS, Axios
-* **Backend:** Node.js, Express.js, Mongoose
-* **Database:** MongoDB (Local or Atlas)
+- Node.js 20.19+ or 22.12+ (Vite 8 requirement).
+- MongoDB is optional. The API serves bundled curriculum content when the database is unavailable.
 
-## 📁 Project Structure
+## Run locally
 
-```text
-├── backend/                # Express server and MongoDB models
-│   ├── models/             # Mongoose schemas (e.g., GradeContent)
-│   ├── .env                # Backend environment variables (ignored by Git)
-│   ├── seed.js             # Script to populate initial curriculum data
-│   └── server.js           # Main Express server entry point
-├── frontend/               # React client application (Vite)
-│   ├── src/
-│   │   ├── pages/          # React components (LandingPage, InteractiveScreen)
-│   │   ├── App.jsx         # Main router setup
-│   │   ├── main.jsx        # React DOM rendering
-│   │   └── index.css       # Tailwind entry point
-│   ├── tailwind.config.js  # Tailwind configuration
-│   └── postcss.config.js   # PostCSS configuration
-├── .gitignore              # Ignored files and directories
-└── README.md               # Project documentation
-```
+Install dependencies once in each folder:
 
-## ⚙️ Local Setup Instructions
-
-Follow these steps to get the project running on your local machine.
-
-### Prerequisites
-* [Node.js](https://nodejs.org/) installed
-* [MongoDB](https://www.mongodb.com/try/download/community) installed and running locally, OR a MongoDB Atlas cloud URI.
-
-### 1. Clone the repository
-```bash
-git clone <your-repository-url>
-cd <your-project-folder>
-```
-
-### 2. Backend Setup
-Open a terminal and navigate to the backend directory:
 ```bash
 cd backend
-```
-Install dependencies:
-```bash
+npm install
+cd ../frontend
 npm install
 ```
-Create a `.env` file in the `backend` folder and add your environment variables:
-```env
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/akshar-bharati-robotics
-```
-Seed the database with initial curriculum data (Run this once):
-```bash
-node seed.js
-```
-Start the backend development server:
-```bash
-npx nodemon server.js
-```
-*The server should run on http://localhost:5000*
 
-### 3. Frontend Setup
-Open a **new** terminal window and navigate to the frontend directory:
+Start the backend in one terminal:
+
 ```bash
-cd frontend
-```
-Install dependencies:
-```bash
-npm install
-```
-Start the Vite development server:
-```bash
+cd backend
 npm run dev
 ```
-*The application will be available at http://localhost:5173*
 
-## 💡 Usage
+Start the frontend in another terminal:
 
-1. Open the frontend URL in your browser.
-2. Select a grade level (5-10) on the landing page.
-3. View the grade-specific introduction, project goals, and problem statements fetched directly from the database.
+```bash
+cd frontend
+npm run dev
+```
+
+Open the Vite URL printed in the frontend terminal (normally `http://localhost:5173`). The backend listens on port 5000.
+
+## Optional MongoDB setup
+
+Copy `backend/.env.example` to `backend/.env` and set `MONGO_URI` to your MongoDB connection string. The backend otherwise attempts the local default database and falls back to the bundled data if it cannot connect.
+
+To update the six grade documents in MongoDB without deleting unrelated records:
+
+```bash
+cd backend
+npm run seed
+```
+
+## Project notes
+
+- No dependencies were added for these changes.
+- Student progress is stored in that browser’s `localStorage`; it is not synced across devices or accounts.
+- The simulations are simplified classroom models and do not represent complete commercial autonomous systems.

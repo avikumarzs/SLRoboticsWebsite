@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
@@ -8,7 +8,10 @@ import MovementSimActivity from '../components/activities/MovementSimActivity';
 import SensorLogicActivity from '../components/activities/SensorLogicActivity';
 import FlowchartBuilderActivity from '../components/activities/FlowchartBuilderActivity';
 import InteractiveQuizActivity from '../components/activities/InteractiveQuizActivity';
+import ConceptIllustration from '../components/ConceptIllustration';
+import LabGuide from '../components/LabGuide';
 import { fallbackCurriculum } from '../data/fallbackCurriculum';
+import { gradeQuizzes } from '../data/gradeQuizzes';
 import {
   getGradeProgress,
   markModuleComplete,
@@ -27,6 +30,18 @@ export default function InteractiveScreen() {
   const [activeActivityType, setActiveActivityType] = useState('build-a-robot');
   const [progress, setProgress] = useState(getGradeProgress(gradeNum));
   const [dataSource, setDataSource] = useState('backend'); // 'backend' or 'fallback'
+
+  const loadFallback = useCallback(() => {
+    const item = fallbackCurriculum.find(c => c.grade === gradeNum);
+    if (item) {
+      setContent(item);
+      setDataSource('fallback');
+      setActiveModuleId(item.modules?.[0]?.id || null);
+      setActiveActivityType(item.activities?.[0]?.type || 'build-a-robot');
+    } else {
+      setContent(null);
+    }
+  }, [gradeNum]);
 
   // Fetch curriculum from backend with automatic fallback to local curriculum
   useEffect(() => {
@@ -55,23 +70,7 @@ export default function InteractiveScreen() {
         loadFallback();
         setLoading(false);
       });
-  }, [gradeNum]);
-
-  const loadFallback = () => {
-    const item = fallbackCurriculum.find(c => c.grade === gradeNum);
-    if (item) {
-      setContent(item);
-      setDataSource('fallback');
-      if (item.modules && item.modules.length > 0) {
-        setActiveModuleId(item.modules[0].id);
-      }
-      if (item.activities && item.activities.length > 0) {
-        setActiveActivityType(item.activities[0].type);
-      }
-    } else {
-      setContent(null);
-    }
-  };
+  }, [gradeNum, loadFallback]);
 
   const handleCompleteModule = (moduleId) => {
     const updated = markModuleComplete(gradeNum, moduleId);
@@ -90,7 +89,7 @@ export default function InteractiveScreen() {
         <div className="flex flex-col items-center justify-center p-12 text-center">
           <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
           <h2 className="text-xl font-bold">Loading Grade {grade} Curriculum...</h2>
-          <p className="text-sm text-slate-400 mt-2">Connecting to Akshar Bharti learning laboratory</p>
+          <p className="text-sm text-slate-400 mt-2">Akshar Bharti Seva International Robotics Simulation Lab</p>
         </div>
         <Footer />
       </div>
@@ -153,6 +152,7 @@ export default function InteractiveScreen() {
   };
 
   const selectedModule = content.modules?.find(m => m.id === activeModuleId) || content.modules?.[0];
+  const selectedActivity = content.activities?.find((activity) => activity.type === activeActivityType);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-blue-600 selection:text-white">
@@ -410,6 +410,7 @@ export default function InteractiveScreen() {
                         )}
                       </div>
                     </div>
+                    <ConceptIllustration title={m.title} compact />
                     <h4 className="text-sm font-bold mb-1">{m.title}</h4>
                     <p className="text-xs text-slate-400 line-clamp-2">{m.summary}</p>
                   </div>
@@ -444,6 +445,9 @@ export default function InteractiveScreen() {
                       </button>
                     </div>
                   </div>
+
+                  <ConceptIllustration title={selectedModule.title} />
+                  <p className="module-learning-outcome"><strong>What you’ll learn:</strong> {selectedModule.summary}</p>
 
                   {/* Key Concepts Tags */}
                   {selectedModule.keyConcepts && (
@@ -555,6 +559,8 @@ export default function InteractiveScreen() {
               </div>
             </div>
 
+            <LabGuide grade={gradeNum} title={selectedActivity?.title || 'Robotics exploration'} activityType={activeActivityType} />
+
             {/* Active Activity Component Display */}
             <div>
               {activeActivityType === 'build-a-robot' && (
@@ -593,7 +599,7 @@ export default function InteractiveScreen() {
           <div className="max-w-3xl mx-auto">
             <InteractiveQuizActivity
               grade={gradeNum}
-              quizQuestions={content.quiz || []}
+              quizQuestions={gradeQuizzes[gradeNum] || content.quiz || []}
               onCompleted={(actId) => handleActivityCompleted(actId)}
             />
           </div>

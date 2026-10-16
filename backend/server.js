@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const GradeContent = require('./models/GradeContent');
 const curriculumData = require('./curriculumData');
+const gradeQuizzes = require('./gradeQuizzes.json');
 
 const app = express();
 app.use(cors());
@@ -34,7 +35,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    service: 'Akshar Bharti Robotics Learning Platform API',
+    service: 'Akshar Bharti Seva International Robotics Simulation Lab API',
     database: {
       connected: isMongoConnected,
       mode: isMongoConnected ? 'mongodb' : 'in-memory-fallback'
@@ -57,7 +58,7 @@ app.get('/api/grades', async (req, res) => {
           subtitle: c.subtitle,
           moduleCount: c.modules ? c.modules.length : 0,
           activityCount: c.activities ? c.activities.length : 0,
-          quizCount: c.quiz ? c.quiz.length : 0
+          quizCount: gradeQuizzes[c.grade]?.length || (c.quiz ? c.quiz.length : 0)
         }));
       }
     }
@@ -71,7 +72,7 @@ app.get('/api/grades', async (req, res) => {
         subtitle: c.subtitle,
         moduleCount: c.modules.length,
         activityCount: c.activities.length,
-        quizCount: c.quiz.length
+        quizCount: gradeQuizzes[c.grade]?.length || c.quiz.length
       }));
     }
 
@@ -86,7 +87,7 @@ app.get('/api/grades', async (req, res) => {
       subtitle: c.subtitle,
       moduleCount: c.modules.length,
       activityCount: c.activities.length,
-      quizCount: c.quiz.length
+        quizCount: gradeQuizzes[c.grade]?.length || c.quiz.length
     }));
     res.json({ grades: fallbackList });
   }
@@ -126,7 +127,8 @@ app.get('/api/content/:grade', async (req, res) => {
       });
     }
 
-    res.json(content);
+    // Keep the assessment consistent with the current grade-specific ten-question quiz.
+    res.json({ ...content.toObject?.() || content, quiz: gradeQuizzes[gradeParam] || content.quiz || [] });
   } catch (error) {
     console.error(`Unexpected error handling grade ${gradeParam}:`, error);
     const localContent = curriculumData.find(c => c.grade === gradeParam);
@@ -187,7 +189,7 @@ app.use('/api', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
-  console.log(`Akshar Bharti Robotics API Server listening on port ${PORT}`);
+  console.log(`Akshar Bharti Seva International Robotics Simulation Lab API listening on port ${PORT}`);
 });
 
 module.exports = { app, server };

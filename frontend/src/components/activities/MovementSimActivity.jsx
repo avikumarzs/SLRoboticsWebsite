@@ -4,12 +4,28 @@ import { markActivityComplete } from '../../utils/progressManager';
 const ARENA_WIDTH = 480;
 const ARENA_HEIGHT = 380;
 const ROBOT_SIZE = 32;
+const getSpeedMultiplier = (setting) => (setting === 'slow' ? 1.5 : setting === 'turbo' ? 4 : 2.5);
 
 const INITIAL_OBSTACLES = [
   { x: 120, y: 80, width: 60, height: 40, label: 'Block A' },
   { x: 280, y: 140, width: 50, height: 70, label: 'Block B' },
   { x: 160, y: 240, width: 70, height: 45, label: 'Block C' },
   { x: 340, y: 260, width: 45, height: 45, label: 'Block D' }
+];
+const LEVEL_LAYOUTS = [
+  INITIAL_OBSTACLES,
+  [
+    { x: 145, y: 135, width: 55, height: 55, label: 'Block A' },
+    { x: 260, y: 75, width: 52, height: 68, label: 'Block B' },
+    { x: 300, y: 210, width: 85, height: 45, label: 'Block C' },
+    { x: 100, y: 285, width: 60, height: 40, label: 'Block D' }
+  ],
+  [
+    { x: 110, y: 155, width: 60, height: 60, label: 'Block A' },
+    { x: 215, y: 65, width: 50, height: 65, label: 'Block B' },
+    { x: 300, y: 145, width: 60, height: 55, label: 'Block C' },
+    { x: 230, y: 275, width: 55, height: 40, label: 'Block D' }
+  ]
 ];
 
 const INITIAL_TARGET = { x: 410, y: 310, radius: 24 };
@@ -24,24 +40,16 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
     distanceTraveled: 0
   });
 
-  const [obstacles] = useState(INITIAL_OBSTACLES);
-  const [target, setTarget] = useState(INITIAL_TARGET);
+  const [obstacles, setObstacles] = useState(INITIAL_OBSTACLES);
+  const [levelIndex, setLevelIndex] = useState(0);
+  const target = INITIAL_TARGET;
   const [speedSetting, setSpeedSetting] = useState('normal'); // slow, normal, turbo
   const [collisionWarning, setCollisionWarning] = useState(false);
   const [missionAccomplished, setMissionAccomplished] = useState(false);
   const [stepLogs, setStepLogs] = useState(['Simulator initialized at (60, 60). Head to the docking beacon!']);
   const [radarPing, setRadarPing] = useState(120);
 
-  const animationRef = useRef(null);
   const canvasRef = useRef(null);
-
-  const getSpeedMultiplier = () => {
-    switch (speedSetting) {
-      case 'slow': return 1.5;
-      case 'turbo': return 4.0;
-      default: return 2.5;
-    }
-  };
 
   const addLog = (msg) => {
     setStepLogs(prev => [msg, ...prev.slice(0, 4)]);
@@ -50,7 +58,7 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
   // Move commands
   const moveForward = useCallback(() => {
     setRobotState(prev => {
-      const step = getSpeedMultiplier();
+      const step = getSpeedMultiplier(speedSetting);
       const rad = ((prev.heading - 90) * Math.PI) / 180;
       let newX = prev.x + Math.cos(rad) * step;
       let newY = prev.y + Math.sin(rad) * step;
@@ -90,13 +98,21 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
 
   const moveBackward = useCallback(() => {
     setRobotState(prev => {
-      const step = getSpeedMultiplier();
+      const step = getSpeedMultiplier(speedSetting);
       const rad = ((prev.heading - 90) * Math.PI) / 180;
       let newX = prev.x - Math.cos(rad) * step;
       let newY = prev.y - Math.sin(rad) * step;
 
       newX = Math.max(ROBOT_SIZE / 2, Math.min(ARENA_WIDTH - ROBOT_SIZE / 2, newX));
       newY = Math.max(ROBOT_SIZE / 2, Math.min(ARENA_HEIGHT - ROBOT_SIZE / 2, newY));
+
+      const collision = obstacles.some(obs => newX + ROBOT_SIZE / 2 > obs.x && newX - ROBOT_SIZE / 2 < obs.x + obs.width && newY + ROBOT_SIZE / 2 > obs.y && newY - ROBOT_SIZE / 2 < obs.y + obs.height);
+      if (collision) {
+        setCollisionWarning(true);
+        addLog('Obstacle contact detected while reversing. Movement stopped.');
+        return prev;
+      }
+      setCollisionWarning(false);
 
       return {
         ...prev,
@@ -105,7 +121,7 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
         distanceTraveled: prev.distanceTraveled + Math.round(step * 0.2)
       };
     });
-  }, [speedSetting]);
+  }, [speedSetting, obstacles]);
 
   const turnLeft = useCallback(() => {
     setRobotState(prev => ({
@@ -173,9 +189,11 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, ARENA_WIDTH, ARENA_HEIGHT);
+    ctx.fillStyle = '#fff8e8';
+    ctx.fillRect(0, 0, ARENA_WIDTH, ARENA_HEIGHT);
 
     // Draw Grid Lines
-    ctx.strokeStyle = '#1e293b';
+    ctx.strokeStyle = '#eadbbd';
     ctx.lineWidth = 1;
     for (let x = 0; x < ARENA_WIDTH; x += 30) {
       ctx.beginPath();
@@ -192,14 +210,14 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
 
     // Draw Obstacles
     obstacles.forEach(obs => {
-      ctx.fillStyle = '#475569';
-      ctx.strokeStyle = '#94a3b8';
+      ctx.fillStyle = '#e5bd83';
+      ctx.strokeStyle = '#9a6737';
       ctx.lineWidth = 2;
       ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
       ctx.strokeRect(obs.x, obs.y, obs.width, obs.height);
 
       // Warning stripes pattern inside
-      ctx.fillStyle = '#64748b';
+      ctx.fillStyle = '#704820';
       ctx.font = '10px monospace';
       ctx.fillText(obs.label, obs.x + 6, obs.y + obs.height / 2 + 3);
     });
@@ -238,8 +256,8 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
     ctx.fill();
 
     // Robot Body
-    ctx.fillStyle = '#2563eb';
-    ctx.strokeStyle = '#60a5fa';
+    ctx.fillStyle = '#dc7900';
+    ctx.strokeStyle = '#a64b0e';
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.roundRect(-ROBOT_SIZE / 2, -ROBOT_SIZE / 2, ROBOT_SIZE, ROBOT_SIZE, 6);
@@ -247,7 +265,7 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
     ctx.stroke();
 
     // Wheels (Left and Right)
-    ctx.fillStyle = '#0f172a';
+    ctx.fillStyle = '#704820';
     ctx.fillRect(-ROBOT_SIZE / 2 - 4, -ROBOT_SIZE / 2 + 4, 4, 10);
     ctx.fillRect(-ROBOT_SIZE / 2 - 4, ROBOT_SIZE / 2 - 14, 4, 10);
     ctx.fillRect(ROBOT_SIZE / 2, -ROBOT_SIZE / 2 + 4, 4, 10);
@@ -263,7 +281,7 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
     ctx.fill();
 
     // Ultrasonic Eyes
-    ctx.fillStyle = '#c084fc';
+    ctx.fillStyle = '#f5b700';
     ctx.beginPath();
     ctx.arc(-5, -ROBOT_SIZE / 2 + 6, 3, 0, Math.PI * 2);
     ctx.arc(5, -ROBOT_SIZE / 2 + 6, 3, 0, Math.PI * 2);
@@ -286,6 +304,17 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
     addLog('Reset rover position to spawn point.');
   };
 
+  const handleNewLevel = () => {
+    let nextIndex = levelIndex;
+    while (nextIndex === levelIndex) nextIndex = Math.floor(Math.random() * LEVEL_LAYOUTS.length);
+    setLevelIndex(nextIndex);
+    setObstacles(LEVEL_LAYOUTS[nextIndex]);
+    setRobotState({ x: 60, y: 60, heading: 90, speed: 0, turnRate: 0, distanceTraveled: 0 });
+    setMissionAccomplished(false);
+    setCollisionWarning(false);
+    addLog(`Loaded Level ${nextIndex + 1}. The rover is back at the start.`);
+  };
+
   return (
     <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 p-6 transition-colors">
       {/* Header */}
@@ -298,7 +327,7 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
             Robot Movement Simulator: Virtual Rover Arena
           </h2>
           <p className="text-sm text-slate-600 dark:text-slate-400">
-            Drive with differential controls or arrow keys. Maneuver through obstacles to dock at the green beacon.
+            Level {levelIndex + 1} · Drive around the obstacles and dock at the green beacon. Reset replays this layout; New Level shuffles to another course.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -323,6 +352,7 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
           >
             Reset Arena
           </button>
+          <button onClick={handleNewLevel} className="px-3 py-1.5 text-xs font-bold rounded-lg bg-blue-600 text-white hover:bg-blue-500">New Level</button>
         </div>
       </div>
 
@@ -367,7 +397,7 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
           {/* Canvas Key Legend */}
           <div className="flex flex-wrap items-center justify-center gap-4 mt-3 text-xs text-slate-500 dark:text-slate-400">
             <span className="flex items-center gap-1.5">
-              <span className="w-3 h-3 bg-blue-600 rounded-sm inline-block" /> Blue Rover (You)
+              <span className="w-3 h-3 bg-amber-600 rounded-sm inline-block" /> Orange Rover (You)
             </span>
             <span className="flex items-center gap-1.5">
               <span className="w-3 h-3 bg-slate-600 rounded-sm inline-block" /> Obstacle Blocks

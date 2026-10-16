@@ -3,12 +3,12 @@ import { markActivityComplete } from '../../utils/progressManager';
 
 export default function SensorLogicActivity({ grade = 7, onCompleted }) {
   const [thresholdDistance, setThresholdDistance] = useState(25); // cm
+  const [startDistance, setStartDistance] = useState(65);
   const [selectedAction, setSelectedAction] = useState('turn-right'); // turn-right, reverse-brake, sound-stop, spin-evade
   const [elseAction, setElseAction] = useState('forward-normal'); // forward-normal, forward-fast
   const [isRunning, setIsRunning] = useState(false);
   const [roverDistance, setRoverDistance] = useState(65); // cm away from obstacle (65 to 5)
   const [roverHeadingOffset, setRoverHeadingOffset] = useState(0); // degrees
-  const [evasionSucceeded, setEvasionSucceeded] = useState(false);
   const [buzzerActive, setBuzzerActive] = useState(false);
   const [statusMessage, setStatusMessage] = useState('System ready. Set threshold rules and run the test track.');
 
@@ -22,8 +22,8 @@ export default function SensorLogicActivity({ grade = 7, onCompleted }) {
   ];
 
   const handleStart = () => {
+    setRoverDistance(startDistance);
     setIsRunning(true);
-    setEvasionSucceeded(false);
     setBuzzerActive(false);
     setStatusMessage('Rover driving forward... Polling ultrasonic sensor at 40kHz.');
   };
@@ -35,11 +35,10 @@ export default function SensorLogicActivity({ grade = 7, onCompleted }) {
 
   const handleReset = () => {
     setIsRunning(false);
-    setRoverDistance(65);
+    setRoverDistance(startDistance);
     setRoverHeadingOffset(0);
-    setEvasionSucceeded(false);
     setBuzzerActive(false);
-    setStatusMessage('Reset rover to starting mark (65 cm).');
+    setStatusMessage(`Reset rover to ${startDistance} cm from the obstacle.`);
   };
 
   // Main Simulation Loop
@@ -63,19 +62,15 @@ export default function SensorLogicActivity({ grade = 7, onCompleted }) {
 
           if (selectedAction === 'turn-right') {
             setRoverHeadingOffset(45);
-            setEvasionSucceeded(true);
             setStatusMessage(`🎯 RULE TRIGGERED (Distance: ${Math.round(prevDist)}cm < ${thresholdDistance}cm): Rover turned right to evade obstacle!`);
           } else if (selectedAction === 'reverse-brake') {
             setRoverHeadingOffset(0);
-            setEvasionSucceeded(true);
             setStatusMessage(`🎯 RULE TRIGGERED (Distance: ${Math.round(prevDist)}cm < ${thresholdDistance}cm): Reverse brakes engaged safely.`);
           } else if (selectedAction === 'sound-stop') {
             setBuzzerActive(true);
-            setEvasionSucceeded(true);
             setStatusMessage(`🔔 RULE TRIGGERED (Distance: ${Math.round(prevDist)}cm < ${thresholdDistance}cm): Buzzer sounded! Rover halted.`);
           } else if (selectedAction === 'spin-evade') {
             setRoverHeadingOffset(180);
-            setEvasionSucceeded(true);
             setStatusMessage(`🎯 RULE TRIGGERED (Distance: ${Math.round(prevDist)}cm < ${thresholdDistance}cm): 180° Spin maneuver completed.`);
           }
 
@@ -266,6 +261,14 @@ export default function SensorLogicActivity({ grade = 7, onCompleted }) {
             }`}>
               <div className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2">
                 1. CONDITIONAL TRIGGER (IF)
+              </div>
+
+              <div className="mb-4">
+                <div className="flex justify-between text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label htmlFor="sensor-start-distance">Starting obstacle distance:</label>
+                  <span className="font-mono font-bold">{startDistance} cm</span>
+                </div>
+                <input id="sensor-start-distance" type="range" min="5" max="65" value={startDistance} disabled={isRunning} onChange={(e) => { const value = Number(e.target.value); setStartDistance(value); setRoverDistance(value); }} className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600 disabled:opacity-50" />
               </div>
 
               <div className="mb-3">

@@ -1,0 +1,111 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #57391e;
+  background: #fffaf0;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --brand-sun: #f5b700;
+  --brand-orange: #dc7900;
+  --brand-accent: #a64b0e;
+  --brand-paper: #fffaf0;
+  --brand-ink: #57391e;
+  --brand-muted: #805d37;
+  --brand-border: #e8dfca;
+}
+
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: var(--brand-paper) !important; color: var(--brand-ink) !important; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 3px solid #dc7900; outline-offset: 3px; }
+::selection { background: #f5b700; color: #57391e; }
+
+/* Re-skin the existing utility-based UI with the logo's amber, orange, and blue. */
+[class~="bg-slate-950"] { background-color: #fffaf0 !important; }
+[class~="bg-slate-900"] { background-color: #fffdf8 !important; }
+[class~="bg-slate-800"] { background-color: #f4eddc !important; }
+[class~="bg-slate-700"] { background-color: #e8dfca !important; }
+[class~="bg-slate-900/50"], [class~="bg-slate-900/40"], [class~="bg-slate-900/60"], [class~="bg-slate-900/70"], [class~="bg-slate-900/80"], [class~="bg-slate-900/90"] { background-color: #fff7e7 !important; }
+[class~="bg-blue-600"], [class~="bg-indigo-600"], [class~="bg-cyan-600"] { background-color: #dc7900 !important; }
+[class~="bg-blue-500"], [class~="bg-indigo-500"], [class~="bg-cyan-500"] { background-color: #f5b700 !important; }
+[class~="text-white"], [class~="text-slate-100"], [class~="text-slate-200"], [class~="text-slate-300"] { color: #57391e !important; }
+[class~="text-slate-400"], [class~="text-slate-500"] { color: #5f6272 !important; }
+[class~="text-blue-400"], [class~="text-cyan-400"], [class~="text-indigo-400"] { color: #a64b0e !important; }
+[class~="border-slate-800"], [class~="border-slate-700"], [class~="border-slate-900"] { border-color: #e8dfca !important; }
+[class~="border-blue-500"], [class~="border-indigo-500"] { border-color: #dc7900 !important; }
+[class~="hover:bg-slate-800"]:hover, [class~="hover:bg-slate-700"]:hover { background-color: #eee3c8 !important; }
+[class~="hover:bg-blue-500"]:hover, [class~="hover:bg-indigo-700"]:hover { background-color: #c96b00 !important; }
+
+.concept-art { width: 100%; height: 150px; margin: 0 0 1.25rem; overflow: hidden; border: 1px solid #e8dfca; border-radius: 1rem; background: linear-gradient(135deg, #fffdf7, #fff3d6); }
+.concept-art svg { display: block; width: 100%; height: 100%; }
+.concept-art-compact { height: 82px; margin: .8rem 0; }
+.wheel-turn { transform-origin: 160px 82px; animation: wheel-rotate 8s linear infinite; }
+@keyframes wheel-rotate { to { transform: rotate(360deg); } }
+.module-learning-outcome { margin: -.5rem 0 1.5rem; padding: .8rem 1rem; border-left: 4px solid var(--brand-sun); background: #fff7e7; border-radius: 0 .75rem .75rem 0; color: #674a2a; font-size: .9rem; }
+.lab-guide { margin: 0 0 1.5rem; padding: 1.25rem; border: 1px solid var(--brand-border); border-radius: 1.25rem; background: #fffdf8; box-shadow: 0 12px 35px rgb(106 79 25 / 7%); }
+.lab-guide-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.lab-guide-heading h2 { margin: .2rem 0 0; color: var(--brand-ink); font-size: 1.2rem; font-weight: 800; }
+.lab-kicker { color: var(--brand-accent); text-transform: uppercase; letter-spacing: .08em; font-size: .72rem; font-weight: 800; }
+.lab-guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+.lab-guide-grid article { min-width: 0; padding: 1rem; border: 1px solid #eee6d4; border-radius: .9rem; background: #fffaf0; }
+.lab-guide-grid h3 { margin: 0 0 .4rem; color: var(--brand-accent); font-size: .9rem; font-weight: 800; }
+.lab-guide-grid p { margin: 0; color: #725436; font-size: .84rem; line-height: 1.55; }
+.lab-objectives { margin: .25rem 0 .65rem; padding-left: 1.1rem; color: #725436; font-size: .82rem; line-height: 1.55; }
+.lab-guide-grid .lab-materials { margin-top: .65rem; }
+.lab-code { grid-column: span 2; }
+.lab-code-title { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.lab-code-title button { padding: .4rem .7rem; border: 0; border-radius: .55rem; background: #dc7900; color: #492b12; font-size: .75rem; font-weight: 700; cursor: pointer; }
+.lab-code pre { overflow-x: auto; margin: .65rem 0; padding: .85rem; border-radius: .65rem; background: #fff0d2; color: #57391e; font-size: .8rem; line-height: 1.55; }
+.lab-code p { font-size: .76rem; }
+.quiz-review { display: grid; gap: .55rem; margin: 0 0 1.5rem; padding: 0; list-style: none; text-align: left; }
+.quiz-review li { display: grid; gap: .25rem; padding: .75rem .9rem; border: 1px solid #e8dfca; border-left: 4px solid #dc7900; border-radius: .65rem; color: #57391e; font-size: .82rem; }
+.quiz-review li span { color: #805d37; }
+.quiz-review .quiz-review-correct { border-left-color: #27825d; }
+@media (max-width: 640px) { .lab-guide-grid { grid-template-columns: 1fr; } .lab-code { grid-column: auto; } .concept-art { height: 125px; } .concept-art-compact { height: 75px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* Warm-only surface overrides: keep legacy utility names from introducing dark gray or navy panels. */
+:root {
+  --brand-accent: #a64b0e;
+  --brand-ink: #57391e;
+  --brand-muted: #805d37;
+}
+button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline-color: #dc7900; }
+[class*="bg-slate-"], [class*="bg-gray-"], [class*="bg-zinc-"], [class*="bg-neutral-"], [class~="bg-black"] {
+  background-color: #fff4dc !important;
+}
+[class*="bg-blue-"], [class*="bg-indigo-"], [class*="bg-cyan-"], [class*="bg-purple-"] { background-color: #fff0ce !important; }
+[class*="bg-blue-600"], [class*="bg-indigo-600"], [class*="bg-cyan-600"], [class*="bg-purple-600"] { background-color: #dc7900 !important; }
+[class*="bg-blue-500"], [class*="bg-indigo-500"], [class*="bg-cyan-500"], [class*="bg-purple-500"] { background-color: #f5b700 !important; }
+[class*="bg-slate-950/"] { background-color: rgb(255 247 228 / 96%) !important; }
+[class*="from-slate-"], [class*="via-slate-"], [class*="to-slate-"],
+[class*="from-gray-"], [class*="via-gray-"], [class*="to-gray-"],
+[class*="from-zinc-"], [class*="via-zinc-"], [class*="to-zinc-"],
+[class*="from-neutral-"], [class*="via-neutral-"], [class*="to-neutral-"] {
+  background-image: linear-gradient(120deg, #fff2d4, #fffdf7 55%, #ffedc4) !important;
+}
+[class*="from-blue-"], [class*="via-blue-"], [class*="to-blue-"],
+[class*="from-indigo-"], [class*="via-indigo-"], [class*="to-indigo-"],
+[class*="from-cyan-"], [class*="via-cyan-"], [class*="to-cyan-"],
+[class*="from-purple-"], [class*="via-purple-"], [class*="to-purple-"] {
+  background-image: linear-gradient(120deg, #f5b700, #dc7900) !important;
+}
+[class*="from-blue-600/20"], [class*="via-indigo-600/20"], [class*="to-cyan-500/10"] {
+  background-image: linear-gradient(120deg, rgb(245 183 0 / 18%), rgb(220 121 0 / 12%)) !important;
+}
+[class*="text-slate-"], [class*="text-gray-"], [class*="text-zinc-"], [class*="text-neutral-"],
+[class~="text-white"], [class*="text-blue-"], [class*="text-indigo-"], [class*="text-cyan-"] {
+  color: #57391e !important;
+}
+[class*="border-slate-"], [class*="border-gray-"], [class*="border-zinc-"], [class*="border-neutral-"] {
+  border-color: #e6c98b !important;
+}
+[class*="accent-blue-"], [class*="accent-purple-"] { accent-color: #dc7900 !important; }
+.lab-code-title button { background: #dc7900; color: #492b12; }
+.lab-code pre { background: #fff0d2; color: #57391e; border: 1px solid #e6c98b; }
+.concept-art { background: linear-gradient(135deg, #fffdf7, #fff0ce); }
+.quiz-review li span { color: #805d37; }
+[class*="hover:bg-blue-"], [class*="hover:bg-indigo-"], [class*="hover:bg-cyan-"], [class*="hover:bg-purple-"] { --hover-warm-surface: #f5b700; }
+[class*="hover:bg-blue-"]:hover, [class*="hover:bg-indigo-"]:hover, [class*="hover:bg-cyan-"]:hover, [class*="hover:bg-purple-"]:hover { background-color: #f5b700 !important; }
