@@ -1,5 +1,5 @@
 // Comprehensive curriculum data for Grades 5-10
-// Aligned with Akshar Bharti Robotics educational booklet curriculum
+// Aligned with Akshar Bharati Robotics educational booklet curriculum
 
 const curriculumData = [
   {
@@ -631,7 +631,7 @@ void loop() {
       'Compare open-loop vs closed-loop feedback systems and explain proportional control',
       'Understand sensor fusion: combining complementary sensors (ultrasonic + IR + encoders)',
       'Design software watchdog timers and failsafe protocols for real-world reliability',
-      'Apply the engineering design cycle to Akshar Bharti rural robotics challenges'
+      'Apply the engineering design cycle to Akshar Bharati rural robotics challenges'
     ],
     problemStatements: [
       'How does proportional error feedback prevent aggressive overshoot and oscillation in line-following or wall-following?',
@@ -681,7 +681,7 @@ If one sensor gives erratic spikes, the fusion filter discards the anomaly!`
         id: 'g10-m3',
         title: 'Fault Tolerant Architecture & Service Learning Impact',
         readTime: '5 min read',
-        keyConcepts: ['Watchdog Timers', 'Motor Stall Detection', 'Failsafe Defaults', 'Akshar Bharti Service Mission'],
+        keyConcepts: ['Watchdog Timers', 'Motor Stall Detection', 'Failsafe Defaults', 'Akshar Bharati Service Mission'],
         summary: 'Designing robots that fail safely and deploying robotics technology for high-impact social good.',
         content: `### Industrial Failsafe Design
 In critical missions, software bugs or physical obstacles must never cause runaway robots:
@@ -689,8 +689,8 @@ In critical missions, software bugs or physical obstacles must never cause runaw
 - **Stall Current Protection:** If wheels are stuck against a boulder, current spikes dramatically. The controller detects high current and shuts down drive H-bridges to prevent motor burnout.
 - **Failsafe Default:** If sensor communication fails, default to \`STOP_ALL_ACTUATORS\` and flash a diagnostic LED code.
 
-### The Akshar Bharti Service Learning Mission
-Through Akshar Bharti's educational outreach, high school students use these exact engineering principles to design low-cost robotics for:
+### The Akshar Bharati Service Learning Mission
+Through Akshar Bharati's educational outreach, high school students use these exact engineering principles to design low-cost robotics for:
 - Automated seed sowing and soil moisture monitoring in rural agriculture.
 - Obstacle-sensing mobility canes for visually impaired citizens.
 - Low-cost automated classroom sanitizers and water level managers.`

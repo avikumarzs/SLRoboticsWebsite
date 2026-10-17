@@ -1,6 +1,6 @@
-# Akshar Bharti Seva International | Robotics Simulation Lab
+# Akshar Bharati Seva International | Robotics Simulation Lab
 
-An interactive robotics learning platform for Grades 5–10. The project uses a React/Vite frontend and an Express/Mongoose backend. The supplied logo is in `frontend/public/akshar-bharti-logo.png`.
+An interactive robotics learning platform for Grades 5–10. The project uses a React/Vite frontend and an Express/Mongoose backend. The supplied logo is in `frontend/public/akshar-bharati-logo.png`.
 
 ## Features
 

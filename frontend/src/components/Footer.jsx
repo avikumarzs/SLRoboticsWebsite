@@ -11,9 +11,9 @@ export default function Footer() {
           {/* Mission Overview */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <img src="/akshar-bharti-logo.png" alt="Akshar Bharti Seva International logo" className="h-12 w-[72px] object-contain" />
+              <img src="/akshar-bharati-logo.png" alt="Akshar Bharati Seva International logo" className="h-12 w-[72px] object-contain" />
               <span className="text-white font-bold text-base tracking-tight">
-                Akshar Bharti Seva International
+                Akshar Bharati Seva International
               </span>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed max-w-md">
@@ -108,7 +108,7 @@ export default function Footer() {
         {/* Bottom Attribution */}
         <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            © {COPYRIGHT_YEAR} Akshar Bharti Seva International. Robotics Simulation Lab for Grades 5–10.
+            © {COPYRIGHT_YEAR} Akshar Bharati Seva International. Robotics Simulation Lab for Grades 5–10.
           </div>
           <div className="flex items-center gap-4">
             <span>Grades 5–10 Curriculum</span>

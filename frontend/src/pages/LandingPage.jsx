@@ -105,7 +105,7 @@ export default function LandingPage() {
             {/* Initiative Pill Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-semibold uppercase tracking-wider mb-8 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-              <span>Akshar Bharti Seva International • Robotics Simulation Lab • Grades 5–10</span>
+              <span>Akshar Bharati Seva International • Robotics Simulation Lab • Grades 5–10</span>
             </div>
 
             {/* Official Required Headline */}
@@ -327,7 +327,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* About Section: Akshar Bharti Educational Purpose */}
+      {/* About Section: Akshar Bharati Educational Purpose */}
       <section className="py-20 bg-slate-900/40 border-t border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-r from-amber-50 via-white to-amber-100 rounded-3xl border border-amber-200 p-8 sm:p-12 shadow-xl">
@@ -337,7 +337,7 @@ export default function LandingPage() {
                   About the Initiative
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-amber-950">
-                  Akshar Bharti Seva International: Robotics Learning for Young Minds
+                  Akshar Bharati Seva International: Robotics Learning for Young Minds
                 </h2>
                 <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
                   This service-learning project introduces robotics ideas to students in Grades 5 through 10 through visual lessons and interactive simulations.

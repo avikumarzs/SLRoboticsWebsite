@@ -89,7 +89,7 @@ export default function InteractiveScreen() {
         <div className="flex flex-col items-center justify-center p-12 text-center">
           <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
           <h2 className="text-xl font-bold">Loading Grade {grade} Curriculum...</h2>
-          <p className="text-sm text-slate-400 mt-2">Akshar Bharti Seva International Robotics Simulation Lab</p>
+          <p className="text-sm text-slate-400 mt-2">Akshar Bharati Seva International Robotics Simulation Lab</p>
         </div>
         <Footer />
       </div>

@@ -1,7 +1,7 @@
 // Client-side progress tracking using localStorage
 // Stores progress per grade: modules read, activities completed, quiz results
 
-const STORAGE_KEY = 'akshar_bharti_robotics_progress';
+const STORAGE_KEY = 'akshar_bharati_robotics_progress';
 
 export function getAllProgress() {
   try {

@@ -28,10 +28,10 @@ export default function Navbar({ currentGrade = null }) {
           <div className="flex items-center justify-between h-16">
             {/* Brand Logo & Title */}
             <Link to="/" className="flex items-center gap-3 group">
-              <img src="/akshar-bharti-logo.png" alt="Akshar Bharti Seva International logo" className="h-12 w-[72px] object-contain" />
+              <img src="/akshar-bharati-logo.png" alt="Akshar Bharati Seva International logo" className="h-12 w-[72px] object-contain" />
               <div className="leading-tight">
                 <span className="block font-bold text-sm sm:text-base tracking-tight text-slate-900">
-                  Akshar Bharti Seva International
+                  Akshar Bharati Seva International
                 </span>
                 <span className="text-xs font-semibold text-blue-800">Robotics Simulation Lab</span>
               </div>

@@ -35,7 +35,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    service: 'Akshar Bharti Seva International Robotics Simulation Lab API',
+    service: 'Akshar Bharati Seva International Robotics Simulation Lab API',
     database: {
       connected: isMongoConnected,
       mode: isMongoConnected ? 'mongodb' : 'in-memory-fallback'
@@ -189,7 +189,7 @@ app.use('/api', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
-  console.log(`Akshar Bharti Seva International Robotics Simulation Lab API listening on port ${PORT}`);
+  console.log(`Akshar Bharati Seva International Robotics Simulation Lab API listening on port ${PORT}`);
 });
 
 module.exports = { app, server };
