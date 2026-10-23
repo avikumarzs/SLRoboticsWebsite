@@ -21,16 +21,14 @@ export default function RobotScrollbar() {
     const viewportHeight = document.documentElement.clientHeight;
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollRange = Math.max(0, scrollHeight - viewportHeight);
-    const thumbHeight = Math.min(
-      trackHeight,
-      Math.max(MIN_THUMB_HEIGHT, trackHeight * viewportHeight / Math.max(scrollHeight, 1))
-    );
-    const maxThumbTop = Math.max(0, trackHeight - thumbHeight);
+    const thumbHeight = MIN_THUMB_HEIGHT;
+    const maxThumbTop = trackHeight;
+    const thumbCenter = scrollRange ? (window.scrollY / scrollRange) * maxThumbTop : 0;
 
     setMetrics({
       visible: scrollRange > 1,
       thumbHeight,
-      thumbTop: scrollRange ? (window.scrollY / scrollRange) * maxThumbTop : 0,
+      thumbTop: thumbCenter - thumbHeight / 2,
       maxThumbTop,
       scrollRange
     });
@@ -57,12 +55,12 @@ export default function RobotScrollbar() {
     if (!track || metrics.scrollRange <= 0) return;
 
     const rect = track.getBoundingClientRect();
-    const thumbTop = Math.min(
+    const thumbCenter = Math.min(
       metrics.maxThumbTop,
-      Math.max(0, clientY - rect.top - metrics.thumbHeight / 2)
+      Math.max(0, clientY - rect.top)
     );
     window.scrollTo({
-      top: (thumbTop / Math.max(metrics.maxThumbTop, 1)) * metrics.scrollRange,
+      top: (thumbCenter / Math.max(metrics.maxThumbTop, 1)) * metrics.scrollRange,
       behavior: 'instant'
     });
   };

@@ -1743,43 +1743,28 @@ export default function KeyConceptVisuals({ concepts = [], content = '', grade =
 
       {/* VISUAL CARDS GRID */}
       {viewMode === 'cards' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="concept-card-grid">
           {concepts.map((kc, i) => {
             const normalized = kc.toLowerCase().trim();
             const data = CONCEPT_DATA[normalized] || getFallbackConcept(kc);
 
             return (
-              <div
+              <button
+                type="button"
                 key={i}
                 onClick={() => setActiveConcept(data)}
-                className="group relative flex flex-col justify-between bg-slate-900/90 hover:bg-slate-900 rounded-xl border border-slate-800 hover:border-cyan-500/60 p-3.5 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-950/40 hover:-translate-y-0.5 cursor-pointer"
+                className="concept-summary-card"
+                aria-haspopup="dialog"
+                aria-label={`Learn more about ${data.title}`}
               >
-                {/* Top Badge & Title */}
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-cyan-300 border border-slate-700">
-                      {data.tag}
-                    </span>
-                    <span className="text-[11px] text-slate-500 group-hover:text-cyan-400 transition-colors">
-                      🔍 Tap to expand
-                    </span>
-                  </div>
-
-                  <h4 className="text-sm font-bold text-white group-hover:text-cyan-200 transition-colors">
-                    {data.title}
-                  </h4>
-                </div>
-
-                {/* SVG Visual Illustration */}
-                <div className="my-2.5 bg-slate-950/70 rounded-lg p-2 border border-slate-800/80 flex items-center justify-center overflow-hidden">
+                <span className="concept-summary-tag">{data.tag}</span>
+                <h4 className="concept-summary-title">{data.title}</h4>
+                <div className="concept-summary-visual" aria-hidden="true">
                   {data.renderSvg()}
                 </div>
-
-                {/* Caption */}
-                <p className="text-xs text-slate-300 leading-snug line-clamp-2">
-                  {data.caption}
-                </p>
-              </div>
+                <p className="concept-summary-caption">{data.caption}</p>
+                <span className="concept-summary-action">Explore concept <span aria-hidden="true">→</span></span>
+              </button>
             );
           })}
         </div>
@@ -1792,7 +1777,10 @@ export default function KeyConceptVisuals({ concepts = [], content = '', grade =
           onClick={() => setActiveConcept(null)}
         >
           <div 
-            className="relative w-full max-w-lg bg-slate-900 border border-cyan-500/50 rounded-2xl p-6 shadow-2xl text-left overflow-hidden"
+            className="concept-detail-modal relative w-full max-w-lg bg-slate-900 border border-cyan-500/50 rounded-2xl p-6 shadow-2xl text-left overflow-hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="concept-detail-title"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -1809,7 +1797,7 @@ export default function KeyConceptVisuals({ concepts = [], content = '', grade =
               {activeConcept.tag}
             </span>
 
-            <h3 className="text-xl font-black text-white mt-2 mb-1">
+            <h3 id="concept-detail-title" className="text-xl font-black text-white mt-2 mb-1">
               {activeConcept.title}
             </h3>
 

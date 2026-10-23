@@ -25,6 +25,7 @@ export default function InteractiveScreen() {
   const [activeModuleId, setActiveModuleId] = useState(null);
   const [progress, setProgress] = useState(getGradeProgress(gradeNum));
   const [dataSource, setDataSource] = useState('backend'); // 'backend' or 'fallback'
+  const [completedModuleNotice, setCompletedModuleNotice] = useState(null);
 
   const loadFallback = useCallback(() => {
     const item = fallbackCurriculum.find(c => c.grade === gradeNum);
@@ -41,6 +42,7 @@ export default function InteractiveScreen() {
   useEffect(() => {
     setLoading(true);
     setProgress(getGradeProgress(gradeNum));
+    setCompletedModuleNotice(null);
 
     // Try fetching from Express backend
     axios.get(`/api/content/${gradeNum}`, { timeout: 3000 })
@@ -65,13 +67,26 @@ export default function InteractiveScreen() {
 
   const handleCompleteModule = (moduleId) => {
     const updated = markModuleComplete(gradeNum, moduleId);
-    setProgress(updated);
+    if (updated) {
+      setProgress(updated);
+      const module = content?.modules?.find(item => item.id === moduleId);
+      setCompletedModuleNotice(module?.title || 'Module');
+    }
   };
 
   const handleActivityCompleted = (actId) => {
     const updated = markActivityComplete(gradeNum, actId);
-    setProgress(updated);
+    if (updated) setProgress(updated);
   };
+
+  useEffect(() => {
+    if (!completedModuleNotice) return undefined;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setCompletedModuleNotice(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [completedModuleNotice]);
 
   if (loading) {
     return (
@@ -370,28 +385,30 @@ export default function InteractiveScreen() {
                 const isSelected = selectedModule?.id === m.id;
                 const isCompleted = progress?.completedModules?.includes(m.id);
                 return (
-                  <div
+                  <button
+                    type="button"
                     key={m.id}
                     onClick={() => setActiveModuleId(m.id)}
-                    className={`p-4 rounded-xl border transition-all cursor-pointer ${
-                      isSelected
-                        ? 'border-blue-500 bg-blue-950/40 shadow-lg text-white'
-                        : 'border-slate-800 bg-slate-900/70 hover:border-slate-700 text-slate-300'
-                    }`}
+                    aria-pressed={isSelected}
+                    className={`module-list-card${isSelected ? ' is-selected' : ''}${isCompleted ? ' is-completed' : ''}`}
                   >
-                    <div className="flex items-center justify-between text-xs mb-1">
-                      <span className="font-mono text-blue-400 font-bold">Module {idx + 1}</span>
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[11px] text-slate-400">{m.readTime}</span>
-                        {isCompleted && (
-                          <span className="text-emerald-400 font-bold">✓ Read</span>
-                        )}
-                      </div>
+                    <div className="module-list-card-top">
+                      <span className="module-list-index">MODULE {String(idx + 1).padStart(2, '0')}</span>
+                      <span className="module-list-read-time">{m.readTime}</span>
                     </div>
-                    <ConceptIllustration title={m.title} compact />
-                    <h4 className="text-sm font-bold mb-1">{m.title}</h4>
-                    <p className="text-xs text-slate-400 line-clamp-2">{m.summary}</p>
-                  </div>
+                    <div className="module-list-illustration">
+                      <ConceptIllustration title={m.title} compact />
+                    </div>
+                    <div className="module-list-card-heading">
+                      <h4>{m.title}</h4>
+                      {isCompleted && <span className="module-list-complete" aria-label="Completed">✓</span>}
+                    </div>
+                    <p className="module-list-summary">{m.summary}</p>
+                    <span className="module-list-card-action">
+                      {isSelected ? 'Currently reading' : 'Open module'}
+                      <span aria-hidden="true">→</span>
+                    </span>
+                  </button>
                 );
               })}
             </div>
@@ -410,18 +427,13 @@ export default function InteractiveScreen() {
                       </h2>
                     </div>
 
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => handleCompleteModule(selectedModule.id)}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                          progress?.completedModules?.includes(selectedModule.id)
-                            ? 'bg-emerald-900/60 text-emerald-300 border border-emerald-700'
-                            : 'bg-blue-600 hover:bg-blue-500 text-white shadow-md'
-                        }`}
-                      >
-                        <span>{progress?.completedModules?.includes(selectedModule.id) ? '✓ Completed' : 'Mark as Read'}</span>
-                      </button>
-                    </div>
+                    <button
+                      onClick={() => handleCompleteModule(selectedModule.id)}
+                      className="module-progress-button"
+                    >
+                      <span aria-hidden="true">✓</span>
+                      {progress?.completedModules?.includes(selectedModule.id) ? 'Completed' : 'Save module progress'}
+                    </button>
                   </div>
 
                   <ConceptIllustration title={selectedModule.title} />
@@ -438,12 +450,11 @@ export default function InteractiveScreen() {
 
                   {/* Action Footer */}
                   <div className="mt-8 pt-6 border-t border-slate-800 flex items-center justify-between">
-                    <button
-                      onClick={() => handleCompleteModule(selectedModule.id)}
-                      className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1"
-                    >
-                      <span>✓ Save Progress</span>
-                    </button>
+                    <p className="module-progress-note">
+                      {progress?.completedModules?.includes(selectedModule.id)
+                        ? 'Your progress is saved on this device.'
+                        : 'Mark this module complete when you’re finished.'}
+                    </p>
 
                     <button
                       onClick={() => navigate('/labs')}
@@ -475,6 +486,37 @@ export default function InteractiveScreen() {
       </main>
 
       <Footer />
+      {completedModuleNotice && (
+        <div
+          className="module-progress-modal-backdrop"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setCompletedModuleNotice(null);
+          }}
+        >
+          <section
+            className="module-progress-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="module-progress-title"
+            aria-describedby="module-progress-description"
+          >
+            <div className="module-progress-modal-icon" aria-hidden="true">✓</div>
+            <p className="module-progress-modal-eyebrow">Progress saved</p>
+            <h2 id="module-progress-title">Module completed!</h2>
+            <p id="module-progress-description">
+              You’ve completed <strong>{completedModuleNotice}</strong>. Your progress is saved on this device.
+            </p>
+            <button
+              type="button"
+              className="module-progress-modal-close"
+              onClick={() => setCompletedModuleNotice(null)}
+              autoFocus
+            >
+              Continue learning
+            </button>
+          </section>
+        </div>
+      )}
     </div>
   );
 }
