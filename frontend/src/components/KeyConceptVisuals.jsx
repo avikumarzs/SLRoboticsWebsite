@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 // Comprehensive educational SVG illustrations & visual definitions for Key Engineering Concepts
 // Covers Grades 5, 6, 7, 8, 9, and 10 aligned with Akshar Bharati Robotics Curriculum
@@ -1673,11 +1674,11 @@ const getFallbackConcept = (name) => {
   };
 };
 
-export default function KeyConceptVisuals({ concepts = [], grade = 5 }) {
+export default function KeyConceptVisuals({ concepts = [], content = '', grade = 5 }) {
   const [activeConcept, setActiveConcept] = useState(null);
-  const [viewMode, setViewMode] = useState('cards'); // 'cards' or 'compact'
+  const [viewMode, setViewMode] = useState('cards');
 
-  if (!concepts || concepts.length === 0) return null;
+  if ((!concepts || concepts.length === 0) && !content) return null;
 
   return (
     <div className="mb-8 rounded-2xl bg-gradient-to-b from-slate-950/80 to-slate-900/80 border border-slate-800 p-5 shadow-xl">
@@ -1691,7 +1692,9 @@ export default function KeyConceptVisuals({ concepts = [], grade = 5 }) {
             </h3>
           </div>
           <p className="text-xs text-slate-400 mt-0.5">
-            Visual diagrams to help you imagine and understand core mechanisms:
+            {viewMode === 'cards'
+              ? 'Visual diagrams to help you imagine and understand core mechanisms:'
+              : 'Lesson notes with formatted headings, explanations, and lists:'}
           </p>
         </div>
 
@@ -1699,6 +1702,7 @@ export default function KeyConceptVisuals({ concepts = [], grade = 5 }) {
         <div className="flex items-center gap-1 bg-slate-950 rounded-lg p-1 border border-slate-800 self-start sm:self-auto">
           <button
             onClick={() => setViewMode('cards')}
+            aria-pressed={viewMode === 'cards'}
             className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-all cursor-pointer ${
               viewMode === 'cards'
                 ? 'bg-blue-600 text-white shadow'
@@ -1708,37 +1712,33 @@ export default function KeyConceptVisuals({ concepts = [], grade = 5 }) {
             🖼️ Visual Cards
           </button>
           <button
-            onClick={() => setViewMode('compact')}
+            onClick={() => setViewMode('text')}
+            aria-pressed={viewMode === 'text'}
             className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-all cursor-pointer ${
-              viewMode === 'compact'
+              viewMode === 'text'
                 ? 'bg-blue-600 text-white shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            🏷️ Compact Tags
+            Text Content
           </button>
         </div>
       </div>
 
-      {/* COMPACT TAGS VIEW */}
-      {viewMode === 'compact' && (
-        <div className="flex flex-wrap gap-2">
-          {concepts.map((kc, i) => {
-            const normalized = kc.toLowerCase().trim();
-            const data = CONCEPT_DATA[normalized] || getFallbackConcept(kc);
-            return (
-              <button
-                key={i}
-                onClick={() => setActiveConcept(data)}
-                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 hover:bg-slate-800 text-cyan-300 border border-slate-700 hover:border-cyan-500 transition-all flex items-center gap-1.5 group cursor-pointer"
-              >
-                <span>•</span>
-                <span>{kc}</span>
-                <span className="text-[10px] text-slate-400 group-hover:text-cyan-400">🔍</span>
-              </button>
-            );
-          })}
-        </div>
+      {/* FORMATTED TEXT CONTENT */}
+      {viewMode === 'text' && (
+        <article className="module-text-content">
+          <h4>Module Text Content</h4>
+          <ReactMarkdown
+            components={{
+              h1: ({ children }) => <h3>{children}</h3>,
+              h2: ({ children }) => <h3>{children}</h3>,
+              h3: ({ children }) => <h4>{children}</h4>,
+            }}
+          >
+            {content}
+          </ReactMarkdown>
+        </article>
       )}
 
       {/* VISUAL CARDS GRID */}

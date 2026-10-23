@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 const GradeContent = require('./models/GradeContent');
@@ -35,7 +37,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    service: 'Akshar Bharati Seva International Robotics Simulation Lab API',
+    service: 'Akshar Bharati Sewa International Robotics Simulation Lab API',
     database: {
       connected: isMongoConnected,
       mode: isMongoConnected ? 'mongodb' : 'in-memory-fallback'
@@ -187,9 +189,17 @@ app.use('/api', (req, res) => {
   res.status(404).json({ error: 'API route not found' });
 });
 
+const frontendDistPath = path.join(__dirname, '..', 'frontend', 'dist');
+if (fs.existsSync(frontendDistPath)) {
+  app.use(express.static(frontendDistPath));
+  app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(frontendDistPath, 'index.html'));
+  });
+}
+
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
-  console.log(`Akshar Bharati Seva International Robotics Simulation Lab API listening on port ${PORT}`);
+  console.log(`Akshar Bharati Sewa International Robotics Simulation Lab API listening on port ${PORT}`);
 });
 
 module.exports = { app, server };

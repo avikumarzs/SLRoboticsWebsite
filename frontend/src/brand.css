@@ -41,6 +41,17 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 3px s
 .wheel-turn { transform-origin: 160px 82px; animation: wheel-rotate 8s linear infinite; }
 @keyframes wheel-rotate { to { transform: rotate(360deg); } }
 .module-learning-outcome { margin: -.5rem 0 1.5rem; padding: .8rem 1rem; border-left: 4px solid var(--brand-sun); background: #fff7e7; border-radius: 0 .75rem .75rem 0; color: #674a2a; font-size: .9rem; }
+.module-text-content { color: #674a2a; font-size: .95rem; line-height: 1.75; }
+.module-text-content h3 { margin: 1.25rem 0 .55rem; color: var(--brand-accent); font-size: 1.2rem; font-weight: 800; line-height: 1.35; }
+.module-text-content h4 { margin: 1rem 0 .45rem; color: var(--brand-ink); font-size: 1.05rem; font-weight: 750; line-height: 1.4; }
+.module-text-content p { margin: .65rem 0; }
+.module-text-content ul, .module-text-content ol { margin: .75rem 0; padding-left: 1.5rem; }
+.module-text-content ul { list-style: disc; }
+.module-text-content ol { list-style: decimal; }
+.module-text-content li { margin: .45rem 0; padding-left: .2rem; }
+.module-text-content li::marker { color: var(--brand-orange); font-weight: 800; }
+.module-text-content strong { color: #57391e; font-weight: 800; }
+.module-text-content code { padding: .1rem .35rem; border-radius: .35rem; background: #fff0d2; color: #8a3e0b; font-size: .88em; }
 .lab-guide { margin: 0 0 1.5rem; padding: 1.25rem; border: 1px solid var(--brand-border); border-radius: 1.25rem; background: #fffdf8; box-shadow: 0 12px 35px rgb(106 79 25 / 7%); }
 .lab-guide-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
 .lab-guide-heading h2 { margin: .2rem 0 0; color: var(--brand-ink); font-size: 1.2rem; font-weight: 800; }

@@ -1,6 +1,6 @@
-# Akshar Bharati Seva International | Robotics Simulation Lab
+# Akshar Bharati Sewa International | Robotics Simulation Lab
 
-An interactive robotics learning platform for Grades 5–10. The project uses a React/Vite frontend and an Express/Mongoose backend. The supplied logo is in `frontend/public/akshar-bharati-logo.png`.
+An interactive robotics learning platform for Grades 5–10. The React/Vite frontend and Express/Mongoose API are maintained in separate source folders, but the repository root is the single install, build, and deployment entry point. In production, Express serves both the API and the built frontend from the same host.
 
 ## Features
 
@@ -14,49 +14,33 @@ An interactive robotics learning platform for Grades 5–10. The project uses a 
 
 ## Requirements
 
-- Node.js 20.19+ or 22.12+ (Vite 8 requirement).
+- Node.js 20.19+ or 22.12+.
 - MongoDB is optional. The API serves bundled curriculum content when the database is unavailable.
 
 ## Run locally
 
-Install dependencies once in each folder:
+From the repository root, install all workspace dependencies and start both servers in one terminal:
 
 ```bash
-cd backend
 npm install
-cd ../frontend
-npm install
-```
-
-Start the backend in one terminal:
-
-```bash
-cd backend
 npm run dev
 ```
 
-Start the frontend in another terminal:
+Open the Vite URL printed in the terminal (normally `http://localhost:5173`). The command starts the API and frontend together, and stopping it also stops both servers. Vite proxies `/api` requests to the backend on port 5000.
+
+## Deploy as one service
+
+Configure the hosting platform to use the repository root, install dependencies with `npm install`, build with `npm run build`, and start with `npm start`. The server listens on the platform-provided `PORT`, serves API routes under `/api`, and serves the built frontend for other routes. No separate frontend hosting service is required.
+
+Set `MONGO_URI` in the hosting platform's environment variables if using MongoDB. Without it, the bundled curriculum remains available. For local MongoDB configuration, copy `backend/.env.example` to `.env` in the repository root and set `MONGO_URI`.
+
+To update the six grade documents in MongoDB:
 
 ```bash
-cd frontend
-npm run dev
-```
-
-Open the Vite URL printed in the frontend terminal (normally `http://localhost:5173`). The backend listens on port 5000.
-
-## Optional MongoDB setup
-
-Copy `backend/.env.example` to `backend/.env` and set `MONGO_URI` to your MongoDB connection string. The backend otherwise attempts the local default database and falls back to the bundled data if it cannot connect.
-
-To update the six grade documents in MongoDB without deleting unrelated records:
-
-```bash
-cd backend
 npm run seed
 ```
 
 ## Project notes
 
-- No dependencies were added for these changes.
 - Student progress is stored in that browser’s `localStorage`; it is not synced across devices or accounts.
 - The simulations are simplified classroom models and do not represent complete commercial autonomous systems.

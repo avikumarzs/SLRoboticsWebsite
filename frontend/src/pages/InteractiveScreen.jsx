@@ -50,7 +50,7 @@ export default function InteractiveScreen() {
     setProgress(getGradeProgress(gradeNum));
 
     // Try fetching from Express backend
-    axios.get(`http://localhost:5000/api/content/${gradeNum}`, { timeout: 3000 })
+    axios.get(`/api/content/${gradeNum}`, { timeout: 3000 })
       .then(res => {
         if (res.data && res.data.grade) {
           setContent(res.data);
@@ -90,7 +90,7 @@ export default function InteractiveScreen() {
         <div className="flex flex-col items-center justify-center p-12 text-center">
           <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
           <h2 className="text-xl font-bold">Loading Grade {grade} Curriculum...</h2>
-          <p className="text-sm text-slate-400 mt-2">Akshar Bharati Seva International Robotics Simulation Lab</p>
+          <p className="text-sm text-slate-400 mt-2">Akshar Bharati Sewa International Robotics Simulation Lab</p>
         </div>
         <Footer />
       </div>
@@ -451,14 +451,13 @@ export default function InteractiveScreen() {
                   <p className="module-learning-outcome"><strong>What you’ll learn:</strong> {selectedModule.summary}</p>
 
                   {/* Key Engineering Concepts Visuals */}
-                  {selectedModule.keyConcepts && (
-                    <KeyConceptVisuals concepts={selectedModule.keyConcepts} grade={gradeNum} />
+                  {(selectedModule.keyConcepts?.length || selectedModule.content) && (
+                    <KeyConceptVisuals
+                      concepts={selectedModule.keyConcepts || []}
+                      content={selectedModule.content || ''}
+                      grade={gradeNum}
+                    />
                   )}
-
-                  {/* Module Text Content */}
-                  <div className="prose prose-invert max-w-none text-slate-300 text-sm leading-relaxed space-y-4 whitespace-pre-line">
-                    {selectedModule.content}
-                  </div>
 
                   {/* Action Footer */}
                   <div className="mt-8 pt-6 border-t border-slate-800 flex items-center justify-between">
