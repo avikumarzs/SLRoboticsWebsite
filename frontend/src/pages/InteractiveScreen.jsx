@@ -9,6 +9,7 @@ import SensorLogicActivity from '../components/activities/SensorLogicActivity';
 import FlowchartBuilderActivity from '../components/activities/FlowchartBuilderActivity';
 import InteractiveQuizActivity from '../components/activities/InteractiveQuizActivity';
 import ConceptIllustration from '../components/ConceptIllustration';
+import KeyConceptVisuals from '../components/KeyConceptVisuals';
 import LabGuide from '../components/LabGuide';
 import { fallbackCurriculum } from '../data/fallbackCurriculum';
 import { gradeQuizzes } from '../data/gradeQuizzes';
@@ -449,23 +450,9 @@ export default function InteractiveScreen() {
                   <ConceptIllustration title={selectedModule.title} />
                   <p className="module-learning-outcome"><strong>What you’ll learn:</strong> {selectedModule.summary}</p>
 
-                  {/* Key Concepts Tags */}
+                  {/* Key Engineering Concepts Visuals */}
                   {selectedModule.keyConcepts && (
-                    <div className="mb-6 p-4 rounded-xl bg-slate-950/60 border border-slate-800">
-                      <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                        Key Engineering Concepts:
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedModule.keyConcepts.map((kc, i) => (
-                          <span
-                            key={i}
-                            className="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800 text-cyan-300 border border-slate-700"
-                          >
-                            • {kc}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                    <KeyConceptVisuals concepts={selectedModule.keyConcepts} grade={gradeNum} />
                   )}
 
                   {/* Module Text Content */}
