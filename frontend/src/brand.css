@@ -52,6 +52,39 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 3px s
 .module-text-content li::marker { color: var(--brand-orange); font-weight: 800; }
 .module-text-content strong { color: #57391e; font-weight: 800; }
 .module-text-content code { padding: .1rem .35rem; border-radius: .35rem; background: #fff0d2; color: #8a3e0b; font-size: .88em; }
+.labs-page { background: #fffaf0; color: var(--brand-ink); }
+.labs-container { width: min(100% - 2rem, 80rem); margin-inline: auto; }
+.labs-hero { padding: clamp(3rem, 8vw, 6rem) 0; border-bottom: 1px solid var(--brand-border); background: radial-gradient(ellipse at 50% 0, #ffe8b5 0, transparent 62%), #fff7e7; }
+.labs-hero h1 { margin: .8rem 0; color: var(--brand-ink); font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 900; letter-spacing: -.035em; line-height: 1.05; }
+.labs-hero p { max-width: 44rem; margin: 0; color: #725436; font-size: 1rem; line-height: 1.7; }
+.labs-kicker { display: inline-block; color: var(--brand-accent); text-transform: uppercase; letter-spacing: .09em; font-size: .72rem; font-weight: 800; }
+.labs-content { padding-block: 2.5rem 4rem; }
+.labs-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.lab-card { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; padding: 1.25rem; border: 1px solid #e8dfca; border-radius: 1.1rem; background: #fffdf8; color: var(--brand-ink); text-align: left; cursor: pointer; transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+.lab-card:hover { transform: translateY(-3px); border-color: #dc7900; box-shadow: 0 12px 28px rgb(106 79 25 / 10%); }
+.lab-card:focus-visible { outline: 3px solid #dc7900; outline-offset: 3px; }
+.lab-card-selected { border-color: #dc7900; box-shadow: inset 0 0 0 1px #dc7900; }
+.lab-card-icon { font-size: 1.8rem; }
+.lab-card-title { margin-top: .3rem; color: var(--brand-ink); font-size: 1.05rem; font-weight: 850; }
+.lab-card-description { margin-top: .5rem; color: #725436; font-size: .8rem; line-height: 1.55; }
+.lab-card-action { margin-top: 1rem; color: var(--brand-accent); font-size: .75rem; font-weight: 800; }
+.labs-workspace { margin-top: 2rem; padding: clamp(1rem, 3vw, 2rem); border: 1px solid #e8dfca; border-radius: 1.4rem; background: #fffdf8; box-shadow: 0 16px 40px rgb(106 79 25 / 7%); }
+.labs-workspace-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; }
+.labs-workspace-heading h2, .labs-entry-card h2 { margin: .3rem 0 0; color: var(--brand-ink); font-size: clamp(1.35rem, 3vw, 2rem); font-weight: 850; }
+.labs-shared-badge { padding: .45rem .7rem; border: 1px solid #e8dfca; border-radius: 999px; background: #fff7e7; color: #805d37; font-size: .72rem; font-weight: 750; }
+.labs-activity-focus { margin-top: 1.25rem; padding: clamp(.75rem, 2vw, 1.25rem); border: 2px solid #dc7900; border-radius: 1.2rem; background: linear-gradient(145deg, #fff7e7, #fffdf8 55%); box-shadow: 0 14px 36px rgb(166 75 14 / 10%); }
+.labs-activity-intro { display: flex; align-items: baseline; gap: .8rem; margin: 0 .25rem 1rem; }
+.labs-activity-intro p { margin: 0; color: #725436; font-size: .9rem; font-weight: 650; line-height: 1.5; }
+.labs-activity-focus > div:not(.labs-activity-intro) { box-shadow: none; }
+.labs-workspace > .lab-guide { margin: 1rem 0 0; padding: .9rem 1rem; box-shadow: none; background: #fffaf0; }
+.lab-guide-details > summary { color: var(--brand-accent); font-size: .85rem; font-weight: 800; cursor: pointer; }
+.lab-guide-details[open] > summary { margin-bottom: .8rem; }
+.lab-guide-details .lab-guide-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.lab-guide-details .lab-guide-grid article { padding: .8rem; }
+.labs-entry-card { max-width: 50rem; margin: 2rem auto; padding: clamp(1.5rem, 5vw, 3rem); border: 1px solid #e8dfca; border-radius: 1.4rem; background: linear-gradient(145deg, #fffdf8, #fff3d6); text-align: center; box-shadow: 0 16px 40px rgb(106 79 25 / 8%); }
+.labs-entry-card p { margin: .8rem auto 1.4rem; max-width: 38rem; color: #725436; font-size: .9rem; line-height: 1.65; }
+.labs-entry-button { padding: .8rem 1.15rem; border: 0; border-radius: .75rem; background: #dc7900; color: #fff; font-size: .82rem; font-weight: 800; cursor: pointer; }
+.labs-entry-button:hover { background: #c96b00; }
 .lab-guide { margin: 0 0 1.5rem; padding: 1.25rem; border: 1px solid var(--brand-border); border-radius: 1.25rem; background: #fffdf8; box-shadow: 0 12px 35px rgb(106 79 25 / 7%); }
 .lab-guide-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
 .lab-guide-heading h2 { margin: .2rem 0 0; color: var(--brand-ink); font-size: 1.2rem; font-weight: 800; }
@@ -71,7 +104,95 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 3px s
 .quiz-review li { display: grid; gap: .25rem; padding: .75rem .9rem; border: 1px solid #e8dfca; border-left: 4px solid #dc7900; border-radius: .65rem; color: #57391e; font-size: .82rem; }
 .quiz-review li span { color: #805d37; }
 .quiz-review .quiz-review-correct { border-left-color: #27825d; }
-@media (max-width: 640px) { .lab-guide-grid { grid-template-columns: 1fr; } .lab-code { grid-column: auto; } .concept-art { height: 125px; } .concept-art-compact { height: 75px; } }
+
+.sensor-lab { overflow: hidden; border: 1px solid #e6c98b; border-radius: 1.15rem; background: #fffdf8; color: #57391e; box-shadow: 0 18px 45px rgb(106 79 25 / 10%); }
+.sensor-lab-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: clamp(1.1rem, 3vw, 1.8rem); border-bottom: 1px solid #eee2c8; background: radial-gradient(ellipse at 5% 0, rgb(245 183 0 / 15%), transparent 55%), #fffaf0; }
+.sensor-lab-eyebrow, .sensor-panel-kicker { color: #a64b0e; font-size: .67rem; font-weight: 850; letter-spacing: .12em; }
+.sensor-lab-header h2 { margin: .3rem 0; color: #57391e; font-size: clamp(1.25rem, 3vw, 1.8rem); font-weight: 900; letter-spacing: -.025em; }
+.sensor-lab-header p { max-width: 42rem; margin: 0; color: #725436; font-size: .85rem; line-height: 1.6; }
+.sensor-lab-status { display: inline-flex; flex: 0 0 auto; align-items: center; gap: .45rem; padding: .45rem .65rem; border: 1px solid #e6c98b; border-radius: 999px; background: #fffdf8; color: #725436; font-size: .62rem; font-weight: 850; letter-spacing: .06em; }
+.sensor-lab-status > span { width: .48rem; height: .48rem; border-radius: 50%; background: #b88445; }
+.sensor-lab-status.is-live > span { background: #27825d; box-shadow: 0 0 0 4px rgb(39 130 93 / 13%); animation: sensor-pulse 1.2s infinite; }
+.sensor-lab-rule { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem 1rem; padding: .8rem clamp(1.1rem, 3vw, 1.8rem); border-bottom: 1px solid #eee2c8; background: #fff7e7; }
+.sensor-rule-label { color: #805d37; font-size: .62rem; font-weight: 850; letter-spacing: .1em; }
+.sensor-lab-rule code { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; color: #57391e; font-size: .85rem; }
+.sensor-lab-rule code strong { color: #a64b0e; }
+.sensor-rule-arrow { color: #b88445; font-weight: 900; }
+.sensor-lab-main { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(18rem, .9fr); gap: 1rem; padding: clamp(.8rem, 2.5vw, 1.4rem); }
+.sensor-track-panel, .sensor-controls-panel { min-width: 0; padding: clamp(.9rem, 2vw, 1.25rem); border: 1px solid #eee2c8; border-radius: .95rem; background: #fffaf0; }
+.sensor-track-panel { display: flex; flex-direction: column; }
+.sensor-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: .8rem; padding-bottom: .85rem; }
+.sensor-panel-heading h3 { margin: .18rem 0 0; color: #57391e; font-size: 1.05rem; font-weight: 850; }
+.sensor-units { color: #805d37; font-size: .6rem; font-weight: 800; letter-spacing: .08em; }
+.sensor-track { position: relative; height: clamp(12rem, 27vw, 17rem); overflow: hidden; border: 1px solid #e6c98b; border-radius: .8rem; background: linear-gradient(180deg, #fffaf0, #fff2d7); }
+.sensor-track-grid { position: absolute; inset: 0 8% 2rem; background-image: linear-gradient(to right, rgb(166 75 14 / 10%) 1px, transparent 1px), linear-gradient(to bottom, rgb(166 75 14 / 8%) 1px, transparent 1px); background-size: 10% 100%, 100% 2rem; }
+.sensor-track-label { position: absolute; bottom: .55rem; z-index: 3; color: #805d37; font-size: .62rem; font-weight: 750; }
+.sensor-track-label-far { left: 8%; }
+.sensor-track-label-near { right: 5%; }
+.sensor-track-baseline { position: absolute; right: 8%; bottom: 2.25rem; left: 8%; height: 2px; background: #dfc89a; }
+.sensor-threshold-marker { position: absolute; top: 1.5rem; bottom: 2.25rem; z-index: 2; border-left: 2px dashed #dc7900; transition: left .18s ease; }
+.sensor-threshold-marker span { position: absolute; top: .3rem; left: .35rem; width: max-content; padding: .3rem .4rem; border-radius: .35rem; background: #dc7900; color: #fff; font-size: .57rem; font-weight: 850; }
+.sensor-obstacle { position: absolute; top: 22%; right: 3%; bottom: 2.25rem; z-index: 1; display: flex; width: 11%; min-width: 2.4rem; flex-direction: column; align-items: center; justify-content: center; gap: .4rem; border: 2px solid #a64b0e; border-radius: .6rem .6rem 0 0; background: repeating-linear-gradient(135deg, #dc7900, #dc7900 8px, #f5b700 8px, #f5b700 16px); color: #fff; box-shadow: 0 8px 18px rgb(166 75 14 / 20%); }
+.sensor-obstacle > span:first-child { position: absolute; top: -.95rem; width: max-content; color: #805d37; font-size: .54rem; font-weight: 850; letter-spacing: .08em; }
+.sensor-obstacle-face { font-size: 1.4rem; text-shadow: 0 1px 2px rgb(0 0 0 / 35%); }
+.sensor-beam { position: absolute; top: 52%; z-index: 2; height: 3px; background: linear-gradient(90deg, #e3a900, rgb(220 121 0 / 25%)); transform: translateY(-50%); transition: left .18s ease, width .18s ease; }
+.sensor-rover { position: absolute; top: 48%; z-index: 3; display: flex; width: 3.1rem; height: 3.1rem; flex-direction: column; align-items: center; justify-content: center; border: 2px solid #a64b0e; border-radius: .75rem; background: #fffdf8; box-shadow: 0 6px 16px rgb(106 79 25 / 18%); transform: translate(-50%, -50%); transition: left .18s ease, border-color .2s ease; }
+.sensor-rover-icon { font-size: 1.2rem; line-height: 1; }
+.sensor-rover-label { margin-top: .14rem; color: #805d37; font-size: .48rem; font-weight: 900; letter-spacing: .08em; }
+.sensor-track.is-triggered .sensor-rover { border-color: #27825d; box-shadow: 0 0 0 5px rgb(39 130 93 / 12%); }
+.sensor-track.is-running .sensor-rover { animation: sensor-rover-bob .65s ease-in-out infinite alternate; }
+.sensor-readings { display: grid; grid-template-columns: .8fr 1.2fr; gap: .65rem; margin-top: .8rem; }
+.sensor-reading-primary, .sensor-branch-reading { display: flex; min-width: 0; flex-direction: column; justify-content: center; padding: .8rem; border: 1px solid #eee2c8; border-radius: .7rem; background: #fffdf8; }
+.sensor-reading-primary > span, .sensor-branch-reading > span { color: #805d37; font-size: .57rem; font-weight: 850; letter-spacing: .07em; }
+.sensor-reading-primary > strong { margin-top: .2rem; color: #27825d; font-size: 1.6rem; font-weight: 900; line-height: 1.1; }
+.sensor-reading-primary > strong.is-near { color: #a64b0e; }
+.sensor-reading-primary small { font-size: .8rem; }
+.sensor-branch-reading strong { margin-top: .25rem; color: #27825d; font-size: .85rem; }
+.sensor-branch-reading em { margin-top: .15rem; color: #805d37; font-size: .65rem; font-style: normal; }
+.sensor-branch-reading.is-true { border-color: #9bc6a8; background: #f0f8ef; }
+.sensor-branch-reading.is-true strong { color: #246b4c; }
+.sensor-run-controls { display: flex; align-items: center; gap: .55rem; margin-top: .8rem; }
+.sensor-run-button, .sensor-reset-button { min-height: 2.7rem; padding: .65rem .9rem; border-radius: .65rem; font-size: .78rem; font-weight: 850; cursor: pointer; transition: transform .15s ease, background .15s ease; }
+.sensor-run-button { flex: 1; border: 1px solid #a64b0e; background: #dc7900; color: #fff; box-shadow: 0 5px 12px rgb(166 75 14 / 17%); }
+.sensor-run-button:hover { transform: translateY(-1px); background: #c96b00; }
+.sensor-reset-button { border: 1px solid #e6c98b; background: #fffdf8; color: #725436; }
+.sensor-reset-button:disabled { opacity: .48; cursor: not-allowed; }
+.sensor-run-count { color: #805d37; font-size: .62rem; white-space: nowrap; }
+.sensor-result { display: flex; gap: .7rem; margin-top: .75rem; padding: .8rem; border: 1px solid #9bc6a8; border-radius: .7rem; background: #f0f8ef; }
+.sensor-result-icon { font-size: 1.2rem; }
+.sensor-result strong { color: #246b4c; font-size: .78rem; }
+.sensor-result p { margin: .2rem 0 0; color: #47654e; font-size: .69rem; line-height: 1.5; }
+.sensor-controls-panel { background: #fffdf8; }
+.sensor-step-heading { display: flex; align-items: flex-start; gap: .65rem; }
+.sensor-step-heading > span { display: grid; width: 1.7rem; height: 1.7rem; flex: 0 0 auto; place-items: center; border-radius: .5rem; background: #fff0ce; color: #a64b0e; font-size: .67rem; font-weight: 900; }
+.sensor-step-heading h3 { margin: 0; color: #57391e; font-size: .88rem; font-weight: 850; }
+.sensor-step-heading p { margin: .16rem 0 0; color: #805d37; font-size: .69rem; }
+.sensor-threshold-control { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: 1rem; color: #725436; font-size: .68rem; }
+.sensor-threshold-control strong { color: #a64b0e; font-size: 1rem; }
+.sensor-threshold-slider { display: block; width: 100%; margin: .75rem 0 .35rem; accent-color: #dc7900; cursor: pointer; }
+.sensor-threshold-slider:disabled { opacity: .55; cursor: not-allowed; }
+.sensor-slider-labels { display: flex; justify-content: space-between; color: #805d37; font-size: .58rem; }
+.sensor-control-hint { margin: .55rem 0 0; color: #805d37; font-size: .65rem; line-height: 1.5; }
+.sensor-response-divider { height: 1px; margin: 1.15rem 0; background: #eee2c8; }
+.sensor-response-options { display: grid; gap: .5rem; margin-top: .8rem; }
+.sensor-response-option { display: flex; align-items: center; gap: .55rem; min-width: 0; padding: .65rem; border: 1px solid #eee2c8; border-radius: .7rem; background: #fffaf0; cursor: pointer; transition: border-color .15s ease, background .15s ease; }
+.sensor-response-option:hover { border-color: #d7b97b; }
+.sensor-response-option.is-selected { border-color: #dc7900; background: #fff5df; box-shadow: inset 0 0 0 1px rgb(220 121 0 / 20%); }
+.sensor-response-option input { width: .95rem; height: .95rem; flex: 0 0 auto; accent-color: #dc7900; }
+.sensor-response-icon { font-size: 1.05rem; }
+.sensor-response-copy { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: .12rem; }
+.sensor-response-copy strong { color: #57391e; font-size: .72rem; }
+.sensor-response-copy small { color: #805d37; font-size: .61rem; line-height: 1.4; }
+.sensor-response-check { color: #a64b0e; font-size: .75rem; font-weight: 900; }
+.sensor-learning-note { display: flex; align-items: flex-start; gap: .5rem; margin-top: 1rem; padding: .7rem; border-radius: .65rem; background: #fff7e7; }
+.sensor-learning-note > span { font-size: .95rem; }
+.sensor-learning-note p { margin: 0; color: #725436; font-size: .65rem; line-height: 1.55; }
+@keyframes sensor-pulse { 50% { box-shadow: 0 0 0 7px rgb(39 130 93 / 6%); } }
+@keyframes sensor-rover-bob { to { margin-top: -.18rem; } }
+
+@media (max-width: 900px) { .labs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .sensor-lab-main { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .labs-container { width: min(100% - 1.25rem, 80rem); } .labs-grid { grid-template-columns: 1fr; } .labs-activity-intro { display: block; } .labs-activity-intro p { margin-top: .35rem; } .lab-guide-grid, .lab-guide-details .lab-guide-grid { grid-template-columns: 1fr; } .lab-code { grid-column: auto; } .sensor-lab-header { flex-direction: column; } .sensor-lab-status { align-self: flex-start; } .sensor-readings { grid-template-columns: 1fr; } .sensor-run-controls { flex-wrap: wrap; } .sensor-run-button { min-width: 10rem; } .sensor-run-count { width: 100%; text-align: right; } .concept-art { height: 125px; } .concept-art-compact { height: 75px; } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }

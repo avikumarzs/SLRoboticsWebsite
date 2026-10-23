@@ -175,7 +175,9 @@ export default function FlowchartBuilderActivity({ grade = 8, onCompleted }) {
         setIsRunning(false);
         setActiveStep(null);
         setRoverActionMessage('🎉 Algorithm successfully executed! Rover navigated without deadlock.');
-        markActivityComplete(grade, 'flowchart-builder');
+        if (grade !== null) {
+          markActivityComplete(grade, 'flowchart-builder');
+        }
         if (onCompleted) onCompleted('flowchart-builder');
       }
     }, 1100);

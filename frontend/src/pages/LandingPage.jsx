@@ -142,6 +142,12 @@ export default function LandingPage() {
               >
                 Explore Platform Features
               </button>
+              <button
+                onClick={() => navigate('/labs')}
+                className="w-full sm:w-auto px-7 py-4 rounded-xl text-base font-bold bg-amber-500 hover:bg-amber-400 text-amber-950 shadow-lg transition-all"
+              >
+                Explore Interactive Labs →
+              </button>
             </div>
 
             {/* Live Feature Highlights Row */}
@@ -167,6 +173,53 @@ export default function LandingPage() {
                 <div className="text-xs text-slate-400 mt-1">Visual logic sequencing & execution</div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Shared Interactive Labs */}
+      <section id="interactive-labs" className="py-20 bg-amber-50 border-t border-amber-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div className="max-w-2xl">
+              <span className="px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold uppercase tracking-wider">
+                One shared workspace
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-amber-950 mt-3 mb-3">
+                Interactive Robotics Labs
+              </h2>
+              <p className="text-sm sm:text-base text-amber-900/80 leading-relaxed">
+                Explore hands-on simulations in one shared space. Choose a lab and start experimenting.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate('/labs')}
+              className="shrink-0 px-5 py-3 rounded-xl bg-amber-700 hover:bg-amber-800 text-white text-sm font-bold shadow-md transition-colors"
+            >
+              Open all labs →
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              ['🛠️', 'Build a Robot', 'Assemble a virtual rover and identify its essential parts.'],
+              ['🕹️', 'Rover Simulator', 'Drive around obstacles and test movement commands.'],
+              ['📡', 'Sensor Logic', 'Tune sensor thresholds and test robot reactions.'],
+              ['📊', 'Flowchart Builder', 'Create and run visual robot instructions.']
+            ].map(([icon, title, description]) => (
+              <button
+                key={title}
+                type="button"
+                onClick={() => navigate('/labs')}
+                className="text-left p-5 rounded-2xl bg-white border border-amber-200 hover:border-amber-500 hover:-translate-y-1 hover:shadow-lg transition-all"
+              >
+                <span className="text-3xl" aria-hidden="true">{icon}</span>
+                <h3 className="text-base font-bold text-amber-950 mt-3 mb-1">{title}</h3>
+                <p className="text-xs text-amber-900/80 leading-relaxed">{description}</p>
+                <span className="inline-block mt-4 text-xs font-bold text-amber-800">Explore lab →</span>
+              </button>
+            ))}
           </div>
         </div>
       </section>

@@ -81,7 +81,9 @@ export default function BuildRobotActivity({ grade = 5, onCompleted }) {
     if (!isComplete) return;
     setIsPoweredOn(true);
     setShowDiagnostic(true);
-    markActivityComplete(grade, 'build-a-robot');
+    if (grade !== null) {
+      markActivityComplete(grade, 'build-a-robot');
+    }
     if (onCompleted) onCompleted('build-a-robot');
   };
 

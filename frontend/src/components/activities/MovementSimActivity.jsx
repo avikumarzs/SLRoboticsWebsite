@@ -178,7 +178,9 @@ export default function MovementSimActivity({ grade = 6, onCompleted }) {
     if (distToTarget < target.radius + ROBOT_SIZE / 2 && !missionAccomplished) {
       setMissionAccomplished(true);
       addLog('🎯 Mission Target Reached! Docking locked.');
-      markActivityComplete(grade, 'movement-sim');
+      if (grade !== null) {
+        markActivityComplete(grade, 'movement-sim');
+      }
       if (onCompleted) onCompleted('movement-sim');
     }
   }, [robotState.x, robotState.y, target, missionAccomplished, grade, onCompleted]);

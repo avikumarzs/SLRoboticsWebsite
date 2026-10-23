@@ -9,6 +9,7 @@ An interactive robotics learning platform for Grades 5–10. The React/Vite fron
 - A rover simulator with three replayable obstacle layouts and collision checks.
 - Sensor controls for both the starting reading and the decision threshold.
 - Ten grade-specific quiz questions per grade, with answer explanations, score review, retry, and progress recording.
+- A shared Interactive Labs workspace at `/labs`, accessible from the landing page and every grade dashboard.
 - Local browser progress tracking for module reads, completed activities, quiz attempts, and best quiz scores.
 - Logo-derived amber, orange, blue, and warm neutral design tokens, responsive layouts, keyboard focus styles, and reduced-motion support.
 
@@ -27,6 +28,8 @@ npm run dev
 ```
 
 Open the Vite URL printed in the terminal (normally `http://localhost:5173`). The command starts the API and frontend together, and stopping it also stops both servers. Vite proxies `/api` requests to the backend on port 5000.
+
+Open `/labs` to browse the shared robot-building, rover simulation, sensor logic, and flowchart labs. They are available in one common workspace with consistent guidance and shared activity progress.
 
 ## Deploy as one service
 

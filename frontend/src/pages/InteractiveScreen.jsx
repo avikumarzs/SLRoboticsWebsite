@@ -3,14 +3,9 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import BuildRobotActivity from '../components/activities/BuildRobotActivity';
-import MovementSimActivity from '../components/activities/MovementSimActivity';
-import SensorLogicActivity from '../components/activities/SensorLogicActivity';
-import FlowchartBuilderActivity from '../components/activities/FlowchartBuilderActivity';
 import InteractiveQuizActivity from '../components/activities/InteractiveQuizActivity';
 import ConceptIllustration from '../components/ConceptIllustration';
 import KeyConceptVisuals from '../components/KeyConceptVisuals';
-import LabGuide from '../components/LabGuide';
 import { fallbackCurriculum } from '../data/fallbackCurriculum';
 import { gradeQuizzes } from '../data/gradeQuizzes';
 import {
@@ -28,7 +23,6 @@ export default function InteractiveScreen() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview'); // 'overview', 'modules', 'activities', 'quiz'
   const [activeModuleId, setActiveModuleId] = useState(null);
-  const [activeActivityType, setActiveActivityType] = useState('build-a-robot');
   const [progress, setProgress] = useState(getGradeProgress(gradeNum));
   const [dataSource, setDataSource] = useState('backend'); // 'backend' or 'fallback'
 
@@ -38,7 +32,6 @@ export default function InteractiveScreen() {
       setContent(item);
       setDataSource('fallback');
       setActiveModuleId(item.modules?.[0]?.id || null);
-      setActiveActivityType(item.activities?.[0]?.type || 'build-a-robot');
     } else {
       setContent(null);
     }
@@ -57,9 +50,6 @@ export default function InteractiveScreen() {
           setDataSource('backend');
           if (res.data.modules && res.data.modules.length > 0) {
             setActiveModuleId(res.data.modules[0].id);
-          }
-          if (res.data.activities && res.data.activities.length > 0) {
-            setActiveActivityType(res.data.activities[0].type);
           }
         } else {
           loadFallback();
@@ -153,7 +143,6 @@ export default function InteractiveScreen() {
   };
 
   const selectedModule = content.modules?.find(m => m.id === activeModuleId) || content.modules?.[0];
-  const selectedActivity = content.activities?.find((activity) => activity.type === activeActivityType);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-blue-600 selection:text-white">
@@ -487,96 +476,20 @@ export default function InteractiveScreen() {
 
         {/* TAB 3: INTERACTIVE ACTIVITIES */}
         {activeTab === 'activities' && (
-          <div className="space-y-6">
-            {/* Activity Switcher Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-slate-900 border border-slate-800">
-              <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                Choose Interactive Activity:
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={() => setActiveActivityType('build-a-robot')}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                    activeActivityType === 'build-a-robot'
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-                  }`}
-                >
-                  <span>🛠️</span>
-                  <span>Build a Robot</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveActivityType('movement-sim')}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                    activeActivityType === 'movement-sim'
-                      ? 'bg-emerald-600 text-white shadow-md'
-                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-                  }`}
-                >
-                  <span>🕹️</span>
-                  <span>Rover Simulator</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveActivityType('sensor-logic')}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                    activeActivityType === 'sensor-logic'
-                      ? 'bg-purple-600 text-white shadow-md'
-                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-                  }`}
-                >
-                  <span>📡</span>
-                  <span>Sensor Logic</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveActivityType('flowchart-builder')}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                    activeActivityType === 'flowchart-builder'
-                      ? 'bg-amber-600 text-white shadow-md'
-                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-                  }`}
-                >
-                  <span>📊</span>
-                  <span>Flowchart Builder</span>
-                </button>
-              </div>
-            </div>
-
-            <LabGuide grade={gradeNum} title={selectedActivity?.title || 'Robotics exploration'} activityType={activeActivityType} />
-
-            {/* Active Activity Component Display */}
-            <div>
-              {activeActivityType === 'build-a-robot' && (
-                <BuildRobotActivity
-                  grade={gradeNum}
-                  onCompleted={handleActivityCompleted}
-                />
-              )}
-
-              {activeActivityType === 'movement-sim' && (
-                <MovementSimActivity
-                  grade={gradeNum}
-                  onCompleted={handleActivityCompleted}
-                />
-              )}
-
-              {activeActivityType === 'sensor-logic' && (
-                <SensorLogicActivity
-                  grade={gradeNum}
-                  onCompleted={handleActivityCompleted}
-                />
-              )}
-
-              {activeActivityType === 'flowchart-builder' && (
-                <FlowchartBuilderActivity
-                  grade={gradeNum}
-                  onCompleted={handleActivityCompleted}
-                />
-              )}
-            </div>
+          <div className="labs-entry-card">
+            <span className="labs-kicker">Shared workspace</span>
+            <h2>All interactive labs in one place</h2>
+            <p>
+              Open the shared lab collection to choose a simulation and set the grade context.
+              The same labs are available from every grade dashboard.
+            </p>
+            <button
+              type="button"
+              onClick={() => navigate('/labs')}
+              className="labs-entry-button"
+            >
+              Browse Interactive Labs →
+            </button>
           </div>
         )}
 

@@ -70,6 +70,13 @@ export default function Navbar({ currentGrade = null }) {
               </button>
 
               <Link
+                to="/labs"
+                className="px-3.5 py-1.5 rounded-xl text-xs font-bold text-amber-950 hover:bg-amber-100 transition-all"
+              >
+                Interactive Labs
+              </Link>
+
+              <Link
                 to="/"
                 className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-amber-950 shadow-sm transition-all"
               >
