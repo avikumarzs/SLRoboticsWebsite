@@ -23,17 +23,17 @@ export default function Navbar({ currentGrade = null }) {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 backdrop-blur-md bg-amber-50/95 border-b border-amber-200 text-amber-950">
+      <nav aria-label="Main navigation" className="sticky top-0 z-50 backdrop-blur-md bg-amber-50/95 border-b border-amber-200 text-amber-950 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Brand Logo & Title */}
-            <Link to="/" className="flex items-center gap-3 group">
-              <img src="/akshar-bharati-logo.png" alt="Akshar Bharati Sewa International logo" className="h-12 w-[72px] object-contain" />
+            <Link to="/" className="flex min-w-0 items-center gap-2 sm:gap-3 group">
+              <img src="/akshar-bharati-logo.png" alt="Akshar Bharati Sewa International logo" className="h-10 w-14 sm:h-12 sm:w-[72px] object-contain shrink-0" />
               <div className="leading-tight">
-                <span className="block font-bold text-sm sm:text-base tracking-tight text-slate-900">
+                <span className="block font-bold text-xs sm:text-base tracking-tight text-slate-900">
                   Akshar Bharati Sewa International
                 </span>
-                <span className="text-xs font-semibold text-blue-800">Robotics Simulation Lab</span>
+                <span className="hidden sm:inline text-xs font-semibold text-blue-800">Robotics Simulation Lab</span>
               </div>
             </Link>
 
@@ -59,29 +59,23 @@ export default function Navbar({ currentGrade = null }) {
             </div>
 
             {/* Right Action buttons */}
-            <div className="flex items-center gap-3">
-              <button
-                onClick={handleOpenStats}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 text-xs font-semibold border border-amber-300 transition-colors"
-                title="View Progress Tracker"
-              >
-                <span>📊</span>
-                <span className="hidden sm:inline">My Progress</span>
-              </button>
-
+            <div className="flex items-center gap-1.5 sm:gap-3">
               <Link
                 to="/labs"
-                className="px-3.5 py-1.5 rounded-xl text-xs font-bold text-amber-950 hover:bg-amber-100 transition-all"
+                className="navbar-labs-link"
               >
-                Interactive Labs
+                <span aria-hidden="true">⚡</span>
+                <span className="hidden sm:inline">Interactive Labs</span>
               </Link>
 
-              <Link
-                to="/"
-                className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-amber-950 shadow-sm transition-all"
+              <button
+                onClick={handleOpenStats}
+                className="navbar-progress-button"
+                title="View Progress Tracker"
               >
-                Home
-              </Link>
+                <span aria-hidden="true">📊</span>
+                <span className="hidden sm:inline">My Progress</span>
+              </button>
             </div>
           </div>
         </div>

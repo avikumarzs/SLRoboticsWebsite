@@ -21,7 +21,7 @@ export default function InteractiveScreen() {
 
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('overview'); // 'overview', 'modules', 'activities', 'quiz'
+  const [activeTab, setActiveTab] = useState('overview'); // 'overview', 'modules', or 'quiz'
   const [activeModuleId, setActiveModuleId] = useState(null);
   const [progress, setProgress] = useState(getGradeProgress(gradeNum));
   const [dataSource, setDataSource] = useState('backend'); // 'backend' or 'fallback'
@@ -226,18 +226,6 @@ export default function InteractiveScreen() {
             </button>
 
             <button
-              onClick={() => setActiveTab('activities')}
-              className={`px-4 py-2.5 text-xs sm:text-sm font-bold rounded-t-xl transition-all border-b-2 flex items-center gap-2 ${
-                activeTab === 'activities'
-                  ? 'border-blue-500 text-white bg-slate-800/60'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              <span>⚡</span>
-              <span>Interactive Labs ({content.activities?.length || 0})</span>
-            </button>
-
-            <button
               onClick={() => setActiveTab('quiz')}
               className={`px-4 py-2.5 text-xs sm:text-sm font-bold rounded-t-xl transition-all border-b-2 flex items-center gap-2 ${
                 activeTab === 'quiz'
@@ -349,7 +337,7 @@ export default function InteractiveScreen() {
               <div>
                 <h4 className="text-base font-bold text-white">Ready to begin learning?</h4>
                 <p className="text-xs text-slate-400">
-                  Read Module 1 or dive straight into the hands-on interactive activities.
+                  Read Module 1 or explore the shared interactive labs.
                 </p>
               </div>
               <div className="flex gap-3">
@@ -360,10 +348,10 @@ export default function InteractiveScreen() {
                   Read Modules →
                 </button>
                 <button
-                  onClick={() => setActiveTab('activities')}
+                  onClick={() => navigate('/labs')}
                   className="px-5 py-2.5 rounded-xl font-bold text-xs bg-slate-800 hover:bg-slate-700 text-white transition-all"
                 >
-                  Launch Interactive Lab
+                  Browse Interactive Labs
                 </button>
               </div>
             </div>
@@ -458,10 +446,10 @@ export default function InteractiveScreen() {
                     </button>
 
                     <button
-                      onClick={() => setActiveTab('activities')}
+                      onClick={() => navigate('/labs')}
                       className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-all"
                     >
-                      Try Interactive Activity →
+                      Explore Interactive Labs →
                     </button>
                   </div>
                 </div>
@@ -474,26 +462,7 @@ export default function InteractiveScreen() {
           </div>
         )}
 
-        {/* TAB 3: INTERACTIVE ACTIVITIES */}
-        {activeTab === 'activities' && (
-          <div className="labs-entry-card">
-            <span className="labs-kicker">Shared workspace</span>
-            <h2>All interactive labs in one place</h2>
-            <p>
-              Open the shared lab collection to choose a simulation and set the grade context.
-              The same labs are available from every grade dashboard.
-            </p>
-            <button
-              type="button"
-              onClick={() => navigate('/labs')}
-              className="labs-entry-button"
-            >
-              Browse Interactive Labs →
-            </button>
-          </div>
-        )}
-
-        {/* TAB 4: MASTERY QUIZ */}
+        {/* TAB 3: MASTERY QUIZ */}
         {activeTab === 'quiz' && (
           <div className="max-w-3xl mx-auto">
             <InteractiveQuizActivity
