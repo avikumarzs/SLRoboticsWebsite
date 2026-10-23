@@ -11,9 +11,7 @@ const GRADES_METADATA = [
     tierLevel: 'Level 1',
     theme: 'Introduction to Simple Machines & Robots',
     summary: 'Explore levers, pulleys, wheels, and the anatomy of a robot through the Sense-Think-Act cycle.',
-    accent: 'from-blue-600 to-cyan-500',
     border: 'hover:border-cyan-400',
-    bgBadge: 'bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300',
     icon: '🤖',
     topics: ['What is Robotics?', 'Simple Machines', 'Robot Anatomy', 'Sense-Think-Act']
   },
@@ -23,9 +21,7 @@ const GRADES_METADATA = [
     tierLevel: 'Level 2',
     theme: 'Mechanisms, Motors & Motion Dynamics',
     summary: 'Discover gear ratios, DC vs servo motors, torque vs speed, and differential drive steering.',
-    accent: 'from-cyan-600 to-teal-500',
     border: 'hover:border-teal-400',
-    bgBadge: 'bg-teal-100 text-teal-800 dark:bg-teal-900/60 dark:text-teal-300',
     icon: '⚙️',
     topics: ['Gear Ratios & Torque', 'DC vs Servo Motors', 'Differential Drive', 'Motion Control']
   },
@@ -35,9 +31,7 @@ const GRADES_METADATA = [
     tierLevel: 'Level 3',
     theme: 'Sensors, Actuators & Circuit Fundamentals',
     summary: 'Connect sensory inputs to mechanical outputs using ultrasonic radar, IR sensors, and motor drivers.',
-    accent: 'from-indigo-600 to-purple-500',
     border: 'hover:border-purple-400',
-    bgBadge: 'bg-purple-100 text-purple-800 dark:bg-purple-900/60 dark:text-purple-300',
     icon: '📡',
     topics: ['Input-Process-Output', 'Ultrasonic HC-SR04', 'IR Line Sensing', 'H-Bridge Drivers']
   },
@@ -47,9 +41,7 @@ const GRADES_METADATA = [
     tierLevel: 'Level 4',
     theme: 'Algorithms, Flowcharts & Control Sequences',
     summary: 'Design decision trees, conditional branches, loops, and visual flowchart logic for autonomy.',
-    accent: 'from-purple-600 to-pink-500',
     border: 'hover:border-pink-400',
-    bgBadge: 'bg-pink-100 text-pink-800 dark:bg-pink-900/60 dark:text-pink-300',
     icon: '📊',
     topics: ['Algorithmic Logic', 'Standard Flowcharts', 'Conditional Branches', 'Continuous Polling']
   },
@@ -59,9 +51,7 @@ const GRADES_METADATA = [
     tierLevel: 'Level 5',
     theme: 'Microcontrollers, Pseudocode & Embedded Logic',
     summary: 'Explore microcontroller architectures, GPIO modes, ADC converters, and PWM motor modulation.',
-    accent: 'from-slate-700 to-cyan-600',
     border: 'hover:border-cyan-400',
-    bgBadge: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/60 dark:text-cyan-300',
     icon: '💻',
     topics: ['MCU Architecture', 'Digital vs Analog', 'PWM Modulation', 'Finite State Machines']
   },
@@ -71,9 +61,7 @@ const GRADES_METADATA = [
     tierLevel: 'Level 6',
     theme: 'Autonomous Systems & Robotics Problem Solving',
     summary: 'Closed-loop feedback control, proportional error minimization, sensor fusion, and societal applications.',
-    accent: 'from-slate-800 to-blue-700',
     border: 'hover:border-blue-400',
-    bgBadge: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-300',
     icon: '🚀',
     topics: ['Closed-Loop Feedback', 'Sensor Fusion', 'Watchdog Failsafes', 'Mission Engineering']
   }
@@ -95,9 +83,9 @@ export default function LandingPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-32">
+      <section className="landing-hero relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-32">
         {/* Subtle Background Glows */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-blue-600/20 via-indigo-600/20 to-cyan-500/10 blur-[120px] pointer-events-none rounded-full" />
+        <div className="landing-hero-glow absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] blur-[120px] pointer-events-none rounded-full" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#dc790018_1px,transparent_1px),linear-gradient(to_bottom,#dc790018_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -134,92 +122,18 @@ export default function LandingPage() {
               </button>
 
               <button
-                onClick={() => {
-                  const el = document.getElementById('how-it-works');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="w-full sm:w-auto px-7 py-4 rounded-xl text-base font-bold bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 hover:border-slate-600 transition-all"
-              >
-                Explore Platform Features
-              </button>
-              <button
                 onClick={() => navigate('/labs')}
                 className="w-full sm:w-auto px-7 py-4 rounded-xl text-base font-bold bg-amber-500 hover:bg-amber-400 text-amber-950 shadow-lg transition-all"
               >
-                Explore Interactive Labs →
+                Try the Robotics Labs →
               </button>
             </div>
 
-            {/* Live Feature Highlights Row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 text-left">
-              <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-sm">
-                <div className="text-2xl mb-1">🛠️</div>
-                <div className="text-xs font-bold text-white uppercase tracking-wider">Robot Builder</div>
-                <div className="text-xs text-slate-400 mt-1">Virtual component assembly & telemetry</div>
-              </div>
-              <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-sm">
-                <div className="text-2xl mb-1">🕹️</div>
-                <div className="text-xs font-bold text-white uppercase tracking-wider">Rover Simulator</div>
-                <div className="text-xs text-slate-400 mt-1">2D arena kinematics & obstacle navigation</div>
-              </div>
-              <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-sm">
-                <div className="text-2xl mb-1">📡</div>
-                <div className="text-xs font-bold text-white uppercase tracking-wider">Sensor Logic</div>
-                <div className="text-xs text-slate-400 mt-1">Ultrasonic threshold calibration & reaction</div>
-              </div>
-              <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-sm">
-                <div className="text-2xl mb-1">📊</div>
-                <div className="text-xs font-bold text-white uppercase tracking-wider">Flowchart Builder</div>
-                <div className="text-xs text-slate-400 mt-1">Visual logic sequencing & execution</div>
-              </div>
+            <div className="landing-facts" aria-label="Platform highlights">
+              <div><strong>Grades 5–10</strong><span>Six learning pathways</span></div>
+              <div><strong>Runs in your browser</strong><span>No installation needed</span></div>
+              <div><strong>No robot kit needed</strong><span>Start with virtual activities</span></div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Shared Interactive Labs */}
-      <section id="interactive-labs" className="py-20 bg-amber-50 border-t border-amber-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-            <div className="max-w-2xl">
-              <span className="px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold uppercase tracking-wider">
-                One shared workspace
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-amber-950 mt-3 mb-3">
-                Interactive Robotics Labs
-              </h2>
-              <p className="text-sm sm:text-base text-amber-900/80 leading-relaxed">
-                Explore hands-on simulations in one shared space. Choose a lab and start experimenting.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => navigate('/labs')}
-              className="shrink-0 px-5 py-3 rounded-xl bg-amber-700 hover:bg-amber-800 text-white text-sm font-bold shadow-md transition-colors"
-            >
-              Open all labs →
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              ['🛠️', 'Build a Robot', 'Assemble a virtual rover and identify its essential parts.'],
-              ['🕹️', 'Rover Simulator', 'Drive around obstacles and test movement commands.'],
-              ['📡', 'Sensor Logic', 'Tune sensor thresholds and test robot reactions.'],
-              ['📊', 'Flowchart Builder', 'Create and run visual robot instructions.']
-            ].map(([icon, title, description]) => (
-              <button
-                key={title}
-                type="button"
-                onClick={() => navigate('/labs')}
-                className="text-left p-5 rounded-2xl bg-white border border-amber-200 hover:border-amber-500 hover:-translate-y-1 hover:shadow-lg transition-all"
-              >
-                <span className="text-3xl" aria-hidden="true">{icon}</span>
-                <h3 className="text-base font-bold text-amber-950 mt-3 mb-1">{title}</h3>
-                <p className="text-xs text-amber-900/80 leading-relaxed">{description}</p>
-                <span className="inline-block mt-4 text-xs font-bold text-amber-800">Explore lab →</span>
-              </button>
-            ))}
           </div>
         </div>
       </section>
@@ -272,9 +186,6 @@ export default function LandingPage() {
                         </div>
                       </div>
 
-                      <span className={`px-2.5 py-1 text-[11px] font-bold rounded-lg uppercase tracking-wider ${item.bgBadge}`}>
-                        Grade {item.grade}
-                      </span>
                     </div>
 
                     {/* Theme Title */}
@@ -321,59 +232,59 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {/* Learning Approach */}
       <section id="how-it-works" className="py-20 border-t border-slate-800/80 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-wider">
-              Experiential Learning Framework
+              A clear path from curiosity to confidence
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-3 mb-4">
-              How the Learning Platform Works
+              Learn robotics step by step
             </h2>
             <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-              Moving beyond static textbook reading to true STEM engagement: learn theory, build systems, simulate real behavior, and demonstrate mastery.
+              Each grade combines focused reading with practical experiments and a chance to check what you’ve learned.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 relative">
+            <div className="landing-approach-card p-6 rounded-2xl bg-slate-900/60 border border-slate-800 relative">
               <div className="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 text-blue-400 font-bold flex items-center justify-center mb-4">
                 01
               </div>
-              <h3 className="text-base font-bold text-white mb-2">Grade-Adapted Concepts</h3>
+              <h3 className="text-base font-bold text-white mb-2">Understand</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Start with concepts calibrated for your cognitive stage. Visual analogies for juniors and formal embedded systems principles for seniors.
+                Read a lesson written for your grade, supported by diagrams and robotics examples.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 relative">
+            <div className="landing-approach-card p-6 rounded-2xl bg-slate-900/60 border border-slate-800 relative">
               <div className="w-10 h-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 font-bold flex items-center justify-center mb-4">
                 02
               </div>
-              <h3 className="text-base font-bold text-white mb-2">Hands-On Assembly</h3>
+              <h3 className="text-base font-bold text-white mb-2">Build</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Mount hardware parts in the virtual assembly lab. Inspect how chassis, battery, motors, sensors, and microcontrollers interconnect.
+                Explore robot components and see how they work together in a virtual workshop.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 relative">
+            <div className="landing-approach-card p-6 rounded-2xl bg-slate-900/60 border border-slate-800 relative">
               <div className="w-10 h-10 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-400 font-bold flex items-center justify-center mb-4">
                 03
               </div>
-              <h3 className="text-base font-bold text-white mb-2">Interactive Simulations</h3>
+              <h3 className="text-base font-bold text-white mb-2">Experiment</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Test rover kinematics, tune ultrasonic radar thresholds, and arrange visual logic flowcharts to solve obstacle challenges in real time.
+                Try movement, sensor, and logic simulations in the interactive labs.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 relative">
+            <div className="landing-approach-card p-6 rounded-2xl bg-slate-900/60 border border-slate-800 relative">
               <div className="w-10 h-10 rounded-xl bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 font-bold flex items-center justify-center mb-4">
                 04
               </div>
-              <h3 className="text-base font-bold text-white mb-2">Verify Mastery</h3>
+              <h3 className="text-base font-bold text-white mb-2">Check your progress</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Solidify your engineering knowledge with immediate quiz feedback, detailed pedagogical explanations, and progress achievement badges.
+                Complete a short quiz and track finished modules in your browser.
               </p>
             </div>
           </div>
@@ -396,7 +307,7 @@ export default function LandingPage() {
                   This service-learning project introduces robotics ideas to students in Grades 5 through 10 through visual lessons and interactive simulations.
                 </p>
                 <p className="text-sm text-slate-400 leading-relaxed">
-                  Students can explore virtual rover parts, test sensor rules, build visual logic, and practise problem-solving without needing a physical robot for these activities.
+                  The resource is designed to make robotics approachable and accessible, whether students are meeting engineering ideas for the first time or ready to explore autonomous systems.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-4 text-xs font-semibold text-slate-300">
                   <div className="flex items-center gap-2">
@@ -413,16 +324,11 @@ export default function LandingPage() {
 
               <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 bg-amber-100 rounded-2xl border border-amber-300 text-center">
                 <div className="text-5xl mb-3">🤝</div>
-                <h4 className="text-white font-bold text-base mb-1">Service Learning Project</h4>
+                <h4 className="text-amber-950 font-bold text-base mb-1">Service Learning Project</h4>
                 <p className="text-xs text-slate-400 mb-4">
                   Community-driven engineering for educational accessibility.
                 </p>
-                <button
-                  onClick={scrollToGrades}
-                  className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition-all shadow-md"
-                >
-                  Choose Grade & Begin
-                </button>
+                <span className="text-xs font-bold text-amber-800">Grades 5–10 · Open learning resource</span>
               </div>
             </div>
           </div>

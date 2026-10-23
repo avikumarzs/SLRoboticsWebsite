@@ -39,6 +39,15 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 3px s
 .module-progress-button:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgb(166 75 14 / 22%); filter: brightness(1.04); }
 .module-progress-button:focus-visible, .module-progress-modal-close:focus-visible { outline: 3px solid #dc7900; outline-offset: 3px; }
 .module-progress-note { color: #805d37; font-size: .75rem; }
+.landing-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 52rem; margin: 3.5rem auto 0; padding: 1rem 0; border-top: 1px solid rgb(166 75 14 / 16%); border-bottom: 1px solid rgb(166 75 14 / 16%); text-align: left; }
+.landing-hero { background: radial-gradient(ellipse at 50% 10%, #fff0cf 0, #fffaf0 54%, #fffaf0 100%); }
+.landing-hero-glow { background: radial-gradient(ellipse, rgb(245 183 0 / 13%), rgb(220 121 0 / 3%) 58%, transparent 76%); }
+.landing-facts > div { display: flex; flex-direction: column; gap: .25rem; padding: .4rem 1.4rem; }
+.landing-facts > div + div { border-left: 1px solid rgb(166 75 14 / 16%); }
+.landing-facts strong { color: #57391e; font-size: .9rem; font-weight: 850; }
+.landing-facts span { color: #805d37; font-size: .74rem; }
+.landing-approach-card { background: linear-gradient(145deg, #fffefa, #fff7e7) !important; border-color: #e8dfca !important; box-shadow: 0 3px 12px rgb(87 57 30 / 4%); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.landing-approach-card:hover { transform: translateY(-3px); border-color: #dc7900 !important; box-shadow: 0 12px 24px rgb(87 57 30 / 9%); }
 .concept-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: 1.1rem; }
 .concept-summary-card { display: flex; min-width: 0; min-height: 19rem; flex-direction: column; align-items: stretch; padding: 1.25rem; border: 1px solid #eadfc9; border-radius: 1.1rem; background: linear-gradient(155deg, #fffefa, #fff8e9); color: #57391e; text-align: left; cursor: pointer; transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
 .concept-summary-card:hover { transform: translateY(-4px); border-color: #d6ae69; box-shadow: 0 14px 28px rgb(87 57 30 / 13%); }
@@ -80,7 +89,8 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 3px s
 @keyframes module-modal-rise-in { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @media (max-width: 640px) { .module-progress-button { width: 100%; } .module-progress-modal { padding: 1.5rem; } .module-progress-modal h2 { font-size: 1.3rem; } }
 @media (max-width: 640px) { .concept-card-grid { grid-template-columns: 1fr; } .concept-summary-card { min-height: 17rem; } .concept-summary-visual { height: 6.5rem; } }
-@media (prefers-reduced-motion: reduce) { .module-progress-modal-backdrop, .module-progress-modal { animation: none; } .module-progress-button, .module-progress-modal-close, .module-list-card, .module-list-card-action > span, .concept-summary-card, .concept-summary-action > span { transition: none; } }
+@media (max-width: 640px) { .landing-facts { grid-template-columns: 1fr; margin-top: 2.5rem; } .landing-facts > div { padding: .7rem .5rem; } .landing-facts > div + div { border-top: 1px solid rgb(166 75 14 / 16%); border-left: 0; } }
+@media (prefers-reduced-motion: reduce) { .module-progress-modal-backdrop, .module-progress-modal { animation: none; } .module-progress-button, .module-progress-modal-close, .module-list-card, .module-list-card-action > span, .concept-summary-card, .concept-summary-action > span, .landing-approach-card { transition: none; } }
 
 /* Re-skin the existing utility-based UI with the logo's amber, orange, and blue. */
 [class~="bg-slate-950"] { background-color: #fffaf0 !important; }
