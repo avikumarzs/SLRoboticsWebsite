@@ -47,3 +47,4 @@ npm run seed
 
 - Student progress is stored in that browser’s `localStorage`; it is not synced across devices or accounts.
 - The simulations are simplified classroom models and do not represent complete commercial autonomous systems.
+- The platform is designed to support hands-on robotics learning through visual explanations, interactive simulations, and grade-specific activities. Copy sentence
